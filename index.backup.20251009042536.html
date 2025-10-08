@@ -15,41 +15,6 @@
 
 
 
-<style id="mobile-hotfix-final">
-/* === MOBILE FINAL LAYOUT === */
- (max-width: 600px){
-  /* Прячем шапку и баннер */
-  #hero, .hero, header.hero, .hero-banner, .hero-inner, .hero-text { display:none !important; }
-
-  /* Тело с отступом под нижнюю панель */
-  body { padding-bottom: 72px !important; margin:0 !important; overflow-x:hidden !important; }
-
-  /* Нижняя панель */
-  #topnav {
-    position:fixed !important; bottom:0 !important; left:0 !important; right:0 !important;
-    width:100% !important; z-index:9999 !important;
-    background:rgba(15,23,42,0.98) !important; border-top:1px solid rgba(255,255,255,0.15);
-  }
-  #topnav .container { padding:6px 8px !important; max-width:none !important; }
-  #topnav .tabs {
-    display:grid !important;
-    grid-template-columns:repeat(6, 1fr) !important;
-    gap:4px !important; justify-items:center !important;
-  }
-  #topnav a {
-    display:flex !important; align-items:center !important; justify-content:center !important;
-    width:clamp(38px,15vw,50px) !important; height:clamp(38px,15vw,50px) !important;
-    background:rgba(255,255,255,0.08) !important;
-    border-radius:12px !important; font-size:0 !important; color:#e5e7eb !important;
-    text-indent:-9999px !important; overflow:hidden !important;
-  }
-  #topnav a::before {
-    content:attr(data-ico) !important;
-    font-size:22px !important; line-height:1 !important;
-    color:#e5e7eb !important; text-indent:0 !important;
-  }
-}
-</style>
 </head>
 <body>
   <header class="site-header">

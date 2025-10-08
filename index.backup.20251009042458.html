@@ -11,43 +11,173 @@
   <link rel="manifest" href="manifest.webmanifest">
   <!-- OG/Twitter остаются включенными ранее -->
     <link rel="stylesheet" href="assets/mobile.css">
-
-
-
-
-<style id="mobile-hotfix-final">
-/* === MOBILE FINAL LAYOUT === */
+<style id="mobile-hotfix-2">
+/* ===== INLINE MOBILE HOTFIX v2 ===== */
  (max-width: 600px){
-  /* Прячем шапку и баннер */
-  #hero, .hero, header.hero, .hero-banner, .hero-inner, .hero-text { display:none !important; }
+  /* Прячем любые варианты шапки/ФИО/баннера на телефонах */
+  #hero, .hero, header#hero, header.hero, .hero-banner, .hero-inner, .hero-text, .hero-contact,
+  header[role="banner"], header.site-header{ display:none !important; }
 
-  /* Тело с отступом под нижнюю панель */
-  body { padding-bottom: 72px !important; margin:0 !important; overflow-x:hidden !important; }
-
-  /* Нижняя панель */
-  #topnav {
-    position:fixed !important; bottom:0 !important; left:0 !important; right:0 !important;
-    width:100% !important; z-index:9999 !important;
-    background:rgba(15,23,42,0.98) !important; border-top:1px solid rgba(255,255,255,0.15);
+  /* Нижняя панель навигации из #topnav: фикс снизу, во всю ширину, без скролла */
+  body{ padding-top:0 !important; padding-bottom:68px !important; }
+  #topnav{
+    position: fixed !important; bottom: 0 !important; top: auto !important; left: 0 !important; right: 0 !important;
+    width: 100% !important; z-index: 2147483647 !important;
+    background: rgba(15,23,42,0.98) !important; border-top: 1px solid rgba(148,163,184,0.25) !important; border-bottom: 0 !important;
+    pointer-events: auto !important;
   }
-  #topnav .container { padding:6px 8px !important; max-width:none !important; }
-  #topnav .tabs {
+  #topnav .container{ max-width:none !important; width:100% !important; padding:6px 8px !important; }
+  #topnav .tabs{
+    display:grid !important; grid-template-columns: repeat(6, minmax(0,1fr)) !important;
+    gap:6px !important; justify-items:center !important; align-items:center !important;
+    overflow:visible !important; padding:0 !important; margin:0 !important;
+  }
+  #topnav a{
+    display:inline-flex !important; align-items:center !important; justify-content:center !important;
+    width:48px !important; height:48px !important; padding:0 !important; margin:0 !important;
+    border-radius:12px !important; background:rgba(255,255,255,0.08) !important;
+    border:none !important; box-shadow:none !important; outline:none !important;
+    color:#e5e7eb !important; font-size:0 !important; line-height:0 !important; white-space:nowrap !important;
+    pointer-events:auto !important; touch-action:manipulation !important;
+  }
+  /* Иконка берётся из data-ico, если есть, иначе дефолт */
+  #topnav a::before{ content: attr(data-ico, "❖") !important; display:block !important; font-size:22px !important; line-height:1 !important; color:#e5e7eb !important; }
+}
+/* smooth-scroll запас под нижнюю панель */
+ (max-width: 600px){
+  :root{ --bottomnav-h: 68px; }
+  html{ scroll-behavior: smooth; }
+  .section [id], .section, h1[id], h2[id]{ scroll-margin-bottom: calc(var(--bottomnav-h) + 12px) !important; }
+}
+</style>
+<style id="mobile-hotfix-2">
+/* ===== INLINE MOBILE HOTFIX v2 ===== */
+ (max-width: 600px){
+  /* прячем любые варианты шапки/ФИО/баннера */
+  #hero, .hero, header#hero, header.hero, .hero-banner, .hero-inner, .hero-text, .hero-contact,
+  header[role="banner"], header.site-header{ display:none !important; }
+
+  /* нижняя панель навигации */
+  body{ padding-top:0 !important; padding-bottom:68px !important; }
+  #topnav{
+    position: fixed !important; bottom: 0 !important; top: auto !important; left: 0 !important; right: 0 !important;
+    width: 100% !important; z-index: 2147483647 !important;
+    background: rgba(15,23,42,0.98) !important; border-top: 1px solid rgba(148,163,184,0.25) !important; border-bottom: 0 !important;
+    pointer-events: auto !important;
+  }
+  #topnav .container{ max-width:none !important; width:100% !important; padding:6px 8px !important; }
+  #topnav .tabs{
+    display:grid !important; grid-template-columns: repeat(6, minmax(0,1fr)) !important;
+    gap:6px !important; justify-items:center !important; align-items:center !important;
+    overflow:visible !important; padding:0 !important; margin:0 !important;
+  }
+  #topnav a{
+    display:inline-flex !important; align-items:center !important; justify-content:center !important;
+    width:48px !important; height:48px !important; padding:0 !important; margin:0 !important;
+    border-radius:12px !important; background:rgba(255,255,255,0.08) !important;
+    border:none !important; box-shadow:none !important; outline:none !important;
+    color:#e5e7eb !important; font-size:0 !important; line-height:0 !important; white-space:nowrap !important;
+    pointer-events:auto !important; touch-action:manipulation !important;
+  }
+  /* иконка из data-ico; дефолт — ❖ */
+  #topnav a::before{ content: attr(data-ico, "❖") !important; display:block !important; font-size:22px !important; line-height:1 !important; color:#e5e7eb !important; }
+}
+/* smooth-scroll запас под нижнюю панель */
+ (max-width: 600px){
+  :root{ --bottomnav-h: 68px; }
+  html{ scroll-behavior: smooth; }
+  .section [id], .section, h1[id], h2[id]{ scroll-margin-bottom: calc(var(--bottomnav-h) + 12px) !important; }
+}
+</style>
+<style id="mobile-hotfix-3">
+/* ===== INLINE MOBILE HOTFIX v3 ===== */
+ (max-width: 600px){
+  /* Гарантируем ровно 6 колонок и отсутствие скролла */
+  #topnav .container{ max-width:none !important; width:100% !important; padding:6px 8px !important; margin:0 !important; border:0 !important; }
+  #topnav .tabs{
     display:grid !important;
-    grid-template-columns:repeat(6, 1fr) !important;
-    gap:4px !important; justify-items:center !important;
+    grid-template-columns:repeat(6, minmax(0,1fr)) !important;
+    gap:6px !important;
+    justify-items:center !important; align-items:center !important;
+    overflow:visible !important; padding:0 !important; margin:0 !important; border:0 !important;
   }
-  #topnav a {
-    display:flex !important; align-items:center !important; justify-content:center !important;
-    width:clamp(38px,15vw,50px) !important; height:clamp(38px,15vw,50px) !important;
-    background:rgba(255,255,255,0.08) !important;
-    border-radius:12px !important; font-size:0 !important; color:#e5e7eb !important;
-    text-indent:-9999px !important; overflow:hidden !important;
+
+  /* Плитки-иконки — резиновый размер, без текста */
+  #topnav a{
+    display:inline-flex !important; align-items:center !important; justify-content:center !important;
+    width:clamp(36px, 14.5vw, 48px) !important;
+    height:clamp(36px, 14.5vw, 48px) !important;
+    padding:0 !important; margin:0 !important;
+    border-radius:12px !important; background:rgba(255,255,255,0.08) !important;
+    border:none !important; box-shadow:none !important; outline:none !important;
+    color:#e5e7eb !important; font-size:0 !important; line-height:0 !important; white-space:nowrap !important;
+    text-indent:-9999px !important;  /* убираем текст на 100% */
   }
-  #topnav a::before {
-    content:attr(data-ico) !important;
-    font-size:22px !important; line-height:1 !important;
-    color:#e5e7eb !important; text-indent:0 !important;
+  #topnav a::before{
+    content: attr(data-ico, "❖") !important;
+    display:block !important; font-size:calc(clamp(36px, 14.5vw, 48px) * 0.46) !important; line-height:1 !important; color:#e5e7eb !important;
+    text-indent:0 !important;
   }
+}
+</style>
+<style id="mobile-hotfix-4">
+/* ===== INLINE MOBILE HOTFIX v4 ===== */
+ (max-width: 600px){
+  /* нижняя панель чётко снизу и во всю ширину */
+  #topnav{
+    position: fixed !important; bottom: 0 !important; top: auto !important; left: 0 !important; right: 0 !important;
+    width: 100% !important; z-index: 2147483647 !important;
+    background: rgba(15,23,42,0.98) !important; border-top: 1px solid rgba(148,163,184,0.25) !important;
+  }
+  /* запас под панель + safe area для iPhone */
+  body{ padding-bottom: calc(env(safe-area-inset-bottom) + 64px) !important; padding-top: 0 !important; }
+
+  #topnav .container{ max-width: none !important; width: 100% !important; padding: 6px 8px !important; margin: 0 !important; }
+
+  /* РОВНО 6 колонок, без скролла / схлопов */
+  #topnav .tabs{
+    display: grid !important;
+    grid-template-columns: repeat(6, 1fr) !important;
+    gap: 6px !important;
+    justify-items: center !important;
+    align-items: center !important;
+    padding: 0 !important; margin: 0 !important; border: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* Плитки-иконки — резиновый размер; текста нет вообще */
+  #topnav a{
+    display: inline-flex !important; align-items: center !important; justify-content: center !important;
+    width: clamp(36px, 14.5vw, 48px) !important;
+    height: clamp(36px, 14.5vw, 48px) !important;
+    padding: 0 !important; margin: 0 !important;
+    border-radius: 12px !important; background: rgba(255,255,255,0.08) !important;
+    border: none !important; box-shadow: none !important; outline: none !important;
+    color: #e5e7eb !important; font-size: 0 !important; line-height: 0 !important; white-space: nowrap !important;
+    text-indent: -9999px !important; /* полностью убираем текст */
+    pointer-events: auto !important; touch-action: manipulation !important;
+  }
+
+  /* Главный источник иконки — data-ico (из JS) */
+  #topnav a::before{
+    content: attr(data-ico, "❖") !important;
+    display: block !important;
+    font-size: calc(clamp(36px, 14.5vw, 48px) * 0.46) !important;
+    line-height: 1 !important;
+    color: #e5e7eb !important;
+    text-indent: 0 !important;
+  }
+
+  /* Fallback: если JS не отработал (нет data-ico) — ставим по порядку ссылок */
+  #topnav .tabs a:nth-child(1):not([data-ico])::before{ content:"🧭" !important; } /* Summary */
+  #topnav .tabs a:nth-child(2):not([data-ico])::before{ content:"🧠" !important; } /* Компетенции */
+  #topnav .tabs a:nth-child(3):not([data-ico])::before{ content:"📂" !important; } /* Проекты */
+  #topnav .tabs a:nth-child(4):not([data-ico])::before{ content:"💼" !important; } /* Опыт */
+  #topnav .tabs a:nth-child(5):not([data-ico])::before{ content:"🧾" !important; } /* Публикации */
+  #topnav .tabs a:nth-child(6):not([data-ico])::before{ content:"📞" !important; } /* Контакты */
+
+  /* страхуемся от любых внутренних паддингов/рамок у предков */
+  #topnav, #topnav *{ box-sizing: border-box !important; }
 }
 </style>
 </head>
