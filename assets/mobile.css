@@ -900,3 +900,101 @@ h1[id], h2[id], h3[id]{
   #topnav .tabs a:nth-child(5)::before{ content:"🧾"; }   /* Публикации / Статьи */
   #topnav .tabs a:nth-child(6)::before{ content:"📞"; }   /* Контакты */
 }
+/* ===== Mobile: no horizontal scroll, multi-row grid-style ===== */
+@media (max-width: 480px){
+  #topnav .tabs{
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    row-gap: 8px !important;
+    column-gap: 10px !important;
+    overflow-x: visible !important;   /* отключаем горизонтальный скролл */
+    padding: 10px var(--pad) !important;
+  }
+  #topnav a{
+    flex: 1 1 calc(33.33% - 10px) !important;  /* 3 колонки */
+    min-width: 0 !important;
+    text-align: center !important;
+    padding: 8px 6px !important;
+    font-size: 14px !important;
+    line-height: 1.15 !important;
+  }
+}
+
+/* Очень узкие экраны — 2 колонки, ещё компактнее */
+@media (max-width: 360px){
+  #topnav a{
+    flex-basis: calc(50% - 10px) !important;   /* 2 колонки */
+    font-size: 13px !important;
+    padding: 8px 5px !important;
+  }
+}
+
+/* ===== (Опционально) Иконки к пунктам меню на мобиле (без правки HTML) ===== */
+/* Если порядок ссылок стабилен — зададим эмодзи-иконки по порядку. Можно поменять по вкусу. */
+@media (max-width: 480px){
+  #topnav a::before{
+    display:block; font-size:18px; line-height:1; margin-bottom:4px; opacity:.95;
+    /* цвет наследуется; при желании можно осветлить: filter: contrast(1.1) */
+  }
+  #topnav .tabs a:nth-child(1)::before{ content:"🧭"; }   /* Summary */
+  #topnav .tabs a:nth-child(2)::before{ content:"🧠"; }   /* Компетенции */
+  #topnav .tabs a:nth-child(3)::before{ content:"📂"; }   /* Проекты / Портфолио */
+  #topnav .tabs a:nth-child(4)::before{ content:"💼"; }   /* Опыт / Резюме */
+  #topnav .tabs a:nth-child(5)::before{ content:"🧾"; }   /* Публикации / Статьи */
+  #topnav .tabs a:nth-child(6)::before{ content:"📞"; }   /* Контакты */
+}
+/* === MOBILE: ONLY ICONS IN NAV, COMPACT HERO === */
+@media (max-width: 480px){
+  /* Меню — сетка из 3–4 иконок в ряд, без горизонтального скролла */
+  #topnav .tabs{
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important; /* 4 колонки на обычных телефонах */
+    gap: 10px !important;
+    overflow: visible !important;
+    padding: 8px var(--pad) !important;
+    justify-items: center !important;
+    align-items: center !important;
+  }
+  /* Очень узкие телефоны: по 3 в ряд */
+  @media (max-width: 360px){
+    #topnav .tabs{ grid-template-columns: repeat(3, 1fr) !important; }
+  }
+
+  /* Ссылки-пункты: текст скрыт, кликабельная зона квадратная */
+  #topnav a{
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 48px !important;
+    height: 48px !important;
+    padding: 0 !important;
+    border-radius: 12px !important;
+    background: rgba(255,255,255,0.06) !important;
+    font-size: 0 !important;            /* прячем текст */
+  }
+  #topnav a:active{ transform: scale(0.98); }
+
+  /* Иконки в ::before — только они видны */
+  #topnav a::before{
+    display: block; font-size: 22px; line-height: 1;
+    color: #e5e7eb; opacity: .95; content: "•";
+  }
+  /* Привязка иконок по порядку ссылок (подстрой при необходимости) */
+  #topnav .tabs a:nth-child(1)::before{ content:"🧭"; }  /* Summary */
+  #topnav .tabs a:nth-child(2)::before{ content:"🧠"; }  /* Компетенции */
+  #topnav .tabs a:nth-child(3)::before{ content:"📂"; }  /* Проекты/Портфолио */
+  #topnav .tabs a:nth-child(4)::before{ content:"💼"; }  /* Опыт/Резюме */
+  #topnav .tabs a:nth-child(5)::before{ content:"🧾"; }  /* Публикации/Статьи */
+  #topnav .tabs a:nth-child(6)::before{ content:"📞"; }  /* Контакты */
+
+  /* Шапка (hero) — компактнее на мобиле */
+  .hero-banner{ height: 120px !important; }
+  .hero-name{ font-size: 22px !important; margin: 6px 0 2px !important; }
+  .hero-contact .tel{ font-size: 14px !important; }
+  .hero-inner{ gap: 10px !important; padding: 8px 0 !important; }
+
+  /* Если всё равно слишком высоко — можно скрыть телефон на очень узких экранах */
+  @media (max-width: 360px){
+    .hero-contact{ display: none !important; }
+  }
+}
