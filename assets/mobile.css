@@ -79,3 +79,77 @@ a[data-temp-hide="1"]{display:none !important}
   a[href]:after{content:" (" attr(href) ")"; font-size:10pt}
 }
 nav{border-bottom:3px solid #22c55e !important}
+
+/* ==== Spacing & layering fixes for video and text ==== */
+.video-wrap{
+  margin: 12px 0 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 0;
+}
+@media (min-width: 768px){
+  .video-wrap{ margin: 16px 0 24px; }
+}
+
+/* Текстовые блоки всегда поверх, с белым фоном (на случай прозрачностей) */
+.section, .section .content{
+  position: relative;
+  z-index: 1;
+  background: #fff;
+}
+
+/* Навигация гарантированно поверх */
+nav{ z-index: 1000 !important; }
+
+/* Без лишнего зазора между баннером и меню */
+.hero + nav{ margin-top: 0; }
+
+/* ==== HARD OVERRIDES for video stacking/flow ==== */
+.video-wrap{
+  position: relative !important;
+  margin: 14px 0 22px !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+  clear: both !important;   /* если где-то есть float-ы */
+}
+
+/* Возвращаем <video> в нормальный поток документа */
+.video-wrap video{
+  position: static !important;
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  object-fit: contain !important; /* избегаем растяжки поверх текста */
+  transform: none !important;
+  top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
+}
+
+/* На случай, если другие контейнеры перекрывают видео */
+.section, .section .content, .block, main{
+  position: relative !important;
+  z-index: 2 !important;
+  background: #fff !important;
+}
+
+/* Любые медиа поверх фона, но под текстом */
+img, video{
+  z-index: 1 !important;
+}
+
+/* Убираем фикс/стик для видео, если где-то задавался */
+video[style*="position:fixed"], video[style*="position:sticky"]{
+  position: static !important;
+}
+
+/* Страховка от отрицательных внешних отступов из старых стилей */
+video, .video-wrap{
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* На планшетах/десктопах чуть больше воздуха */
+@media (min-width: 768px){
+  .video-wrap{ margin: 18px 0 26px !important; }
+}
