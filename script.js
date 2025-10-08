@@ -77,3 +77,48 @@ if (printBtn) {
   const io = new IntersectionObserver(onVis, { root: null, threshold: 0.25 });
   vids.forEach(v => io.observe(v));
 })();
+
+// === Anchor smart scroll (respects fixed #topnav height) ===
+(function(){
+  function topnavH(){
+    const n = document.getElementById('topnav');
+    return (n && n.offsetHeight) || 60;
+  }
+  function setVar(){
+    document.documentElement.style.setProperty('--topnav-h', topnavH() + 'px');
+  }
+  function scrollToId(id){
+    const el = document.getElementById(id);
+    if(!el) return;
+    const y = el.getBoundingClientRect().top + window.scrollY - topnavH() - 12;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+  // Init
+  document.addEventListener('DOMContentLoaded', () => {
+    setVar();
+    // Если пришли по хэшу — скорректируем позицию
+    if(location.hash && location.hash.length > 1){
+      setTimeout(()=>scrollToId(decodeURIComponent(location.hash.substring(1))), 0);
+    }
+  });
+  window.addEventListener('resize', setVar);
+
+  // Перехватываем клики по якорям и скроллим точно под меню
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if(!a) return;
+    const href = a.getAttribute('href');
+    const id = decodeURIComponent(href.slice(1));
+    const el = document.getElementById(id);
+    if(!el) return;
+    e.preventDefault();
+    scrollToId(id);
+    history.pushState(null, '', '#' + id);
+  });
+
+  // Обработка прямой смены hash (например, Back/Forward)
+  window.addEventListener('hashchange', () => {
+    const id = decodeURIComponent((location.hash || '').slice(1));
+    if(id) scrollToId(id);
+  });
+})();

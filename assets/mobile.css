@@ -798,3 +798,19 @@ main, .section, .wrap, .block{ position:relative !important; z-index:1 !importan
 /* Чуточку воздуха между текстом и видео */
 .section .content{ margin-bottom: 8px !important; }
 .section .video-wrap{ margin-top: 10px !important; }
+
+/* === ANCHOR OFFSET (учёт фикс-меню #topnav) === */
+:root{ --topnav-h: 60px; }              /* дефолтная высота, JS обновит фактическую */
+html{ scroll-behavior: smooth; }
+
+/* Все потенциальные цели якорей получают запас сверху */
+.section[id],
+.section [id],
+h1[id], h2[id], h3[id]{
+  scroll-margin-top: calc(var(--topnav-h) + 12px) !important;
+}
+
+/* На очень узких экранах шапка выше */
+@media (max-width: 420px){
+  :root{ --topnav-h: 68px; }
+}
