@@ -515,3 +515,73 @@ main, .section, .wrap, .block{
 
 /* Небольшая подстраховка: отступ сверху у контента, если вдруг меню наползает */
 body{ scroll-padding-top: 64px !important; }
+/* === NAV CLICK FIX — жесткий оверрайд слоя и событий === */
+nav{
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 2147483647 !important; /* максимальный разумный */
+  pointer-events: auto !important;
+}
+nav *, nav a, nav .tabs a, nav li a{
+  pointer-events: auto !important;
+  position: relative; /* на всякий случай для локального стэкинга */
+}
+
+/* Любые потенциальные перекрыватели — обезвреживаем */
+.hero, .hero *, .hero::before, .hero::after,
+header, header::before, header::after,
+.banner, .banner::before, .banner::after{
+  pointer-events: none !important;  /* ничего из шапки не ловит клики */
+}
+.hero .hero-inner, .hero .hero-text{
+  pointer-events: auto !important;  /* но свой контент кликабелен, если там есть ссылки */
+}
+
+/* Псевдоэлементы, которые могут висеть над nav */
+*::before, *::after{
+  /* не выключаем глобально, только если они реально перекрывают */
+}
+.hero::before, .hero::after, .hero-banner::before, .hero-banner::after{
+  content: none !important;
+  pointer-events: none !important;
+}
+
+/* На случай полноэкранных оверлеев из старого CSS */
+.overlay, .backdrop, .mask, .glass, .shade{
+  pointer-events: none !important;
+}
+
+/* Адаптив: убедимся, что на мобиле меню — поверх всего */
+@media (max-width: 979px){
+  nav{ position: sticky !important; top: 0 !important; z-index: 2147483647 !important; }
+}
+
+/* Подстраховка: контент ниже не может накрыть меню */
+main, .section, .wrap, .block{
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Убираем любые декоративные рамки/фоны у пунктов меню */
+nav a, nav .tabs a, nav li a{
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  color: #e5e7eb !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  padding: 8px 10px !important;
+}
+
+/* Ровная укладка пунктов */
+nav .tabs, nav .menu, nav .container{
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+@media (min-width: 980px){
+  nav .tabs, nav .menu, nav .container{ justify-content: center !important; gap: 18px !important; }
+}
