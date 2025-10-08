@@ -710,3 +710,61 @@ body{ padding-top: 60px !important; }
 .hero .hero-inner, .hero .hero-text{ pointer-events:auto !important; }
 .hero, .hero-banner{ z-index: 0 !important; }
 main, .section, .wrap, .block{ position:relative !important; z-index:1 !important; }
+/* === Секции: порядок Ж->Текст->Видео, без трогания HTML === */
+.section{
+  display: flex !important;
+  flex-direction: column !important;
+}
+.section h1, .section h2{ order: 1 !important; }
+.section .content{ order: 2 !important; }
+.section .video-wrap{ order: 3 !important; }
+
+/* Чуть больше воздуха между текстом и видео */
+.section .content{ margin-bottom: 8px !important; }
+.section .video-wrap{ margin-top: 10px !important; }
+
+/* === Мобильная читаемость === */
+@media (max-width: 480px){
+  :root{
+    --fs-body: 18px;                /* крупнее базовый текст */
+    --fs-h1: clamp(30px, 7.5vw, 44px);
+    --fs-h2: clamp(22px, 5.2vw, 34px);
+  }
+  .section .content{ line-height: 1.7 !important; }
+}
+
+/* === Якоря: чтобы при клике заголовок не уезжал под фикс-меню === */
+.section [id], .section h1, .section h2{
+  scroll-margin-top: 84px !important;   /* подстраховка под фиксированный topnav */
+}
+@media (max-width: 420px){
+  .section [id], .section h1, .section h2{ scroll-margin-top: 92px !important; }
+}
+
+/* === Меню на мобиле: лента во всю ширину, не «узкая» полоса === */
+#topnav .container{
+  max-width: none !important;
+  width: 100% !important;
+  padding: 10px var(--pad) !important;
+}
+#topnav .tabs{
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+#topnav .tabs::-webkit-scrollbar{ display: none; }
+#topnav a{
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+  padding: 8px 10px !important;
+  font-size: 15px !important;
+}
+
+/* === (опционально) вернуть фон баннера, если hero есть в разметке === */
+.hero-banner{
+  width:100% !important;
+  height: clamp(120px, 24vw, 220px) !important;
+  background: linear-gradient(135deg,#0f172a, #1e293b 55%, #334155) !important;
+}
