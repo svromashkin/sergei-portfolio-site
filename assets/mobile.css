@@ -1053,3 +1053,70 @@ h1[id], h2[id], h3[id]{
     .hero-contact{ display: none !important; }
   }
 }
+/* ===== MOBILE ICONS-ONLY NAV (no nested @media, hard overrides) ===== */
+
+/* <= 600px: 4 колонки иконок, без горизонтального скролла */
+@media (max-width: 600px){
+  #topnav .tabs{
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0,1fr)) !important;
+    gap: 10px !important;
+    justify-items: center !important;
+    align-items: center !important;
+    overflow-x: visible !important;
+    padding: 8px var(--pad) !important;
+  }
+  /* Ссылки — квадратные плитки с ИКОНКОЙ в ::before, текст скрыт */
+  #topnav a{
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 48px !important;
+    height: 48px !important;
+    padding: 0 !important;
+    border-radius: 12px !important;
+    background: rgba(255,255,255,0.06) !important;
+    color: #e5e7eb !important;
+    font-size: 0 !important;      /* прячем текст */
+    line-height: 0 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+  }
+  #topnav a::before{
+    content: "•";
+    display: block !important;
+    font-size: 22px !important;
+    line-height: 1 !important;
+    color: #e5e7eb !important;
+  }
+  /* Привязка иконок по порядку ссылок (подгони при необходимости) */
+  #topnav .tabs a:nth-child(1)::before{ content:"🧭" !important; } /* Summary */
+  #topnav .tabs a:nth-child(2)::before{ content:"🧠" !important; } /* Компетенции */
+  #topnav .tabs a:nth-child(3)::before{ content:"📂" !important; } /* Проекты */
+  #topnav .tabs a:nth-child(4)::before{ content:"💼" !important; } /* Опыт */
+  #topnav .tabs a:nth-child(5)::before{ content:"🧾" !important; } /* Публикации */
+  #topnav .tabs a:nth-child(6)::before{ content:"📞" !important; } /* Контакты */
+
+  /* Снимаем любые старые флексы и скролл на мобиле */
+  #topnav .tabs::-webkit-scrollbar{ display:none !important; }
+  #topnav .tabs, #topnav .menu{ overflow-x: visible !important; }
+
+  /* Шапка (hero) — компактнее на мобиле */
+  .hero-banner{ height: 120px !important; }
+  .hero-name{ font-size: 22px !important; margin: 6px 0 2px !important; }
+  .hero-contact .tel{ font-size: 14px !important; }
+  .hero-inner{ gap: 10px !important; padding: 8px 0 !important; }
+}
+
+/* <= 360px: 3 колонки иконок, ещё компактнее */
+@media (max-width: 360px){
+  #topnav .tabs{
+    grid-template-columns: repeat(3, minmax(0,1fr)) !important;
+  }
+  #topnav a{
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 10px !important;
+  }
+  .hero-contact{ display:none !important; }
+}
