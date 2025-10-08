@@ -10,10 +10,13 @@
   <meta name="theme-color" content="#0ea5e9">
   <link rel="manifest" href="manifest.webmanifest">
   <!-- OG/Twitter остаются включенными ранее -->
+    <link rel="stylesheet" href="assets/mobile.css">
 </head>
 <body>
   <header class="site-header">
     <nav class="wrap nav">
+  <div class="container">
+  <div class="container">
       <span class="brand"><img src="assets/profile.svg" alt="Аватар" width="28" height="28" style="border-radius:50%;vertical-align:middle;margin-right:8px;">Сергей Ромашкин</span>
       <div class="spacer"></div>
       <a href="#exec">Summary</a>
@@ -23,30 +26,32 @@
       <a href="#education">Образование</a>
       <a href="#pubs">Публикации/Награды</a>
       <a href="#lang">Языки</a>
-      <a href="#contact">Контакты</a>
-    </nav>
+      <a  href="#contact" data-temp-hide="1"Контакты</a>
+    </div>
+</div>
+</nav>
   </header>
 
   <main id="main">
     <!-- HERO c видео -->
-    <section class="hero wrap" id="hero" style="padding-top:28px">
+    <section class="hero wrap section" id="hero" style="padding-top:28px">
       <h1 style="margin-bottom:8px;">SVP Subsurface & Digital (E&amp;P) / Директор по интегрированному развитию месторождений</h1>
       <p class="lead" style="margin-bottom:14px;">г. Новый Уренгой · <a href="mailto:svromashkin@gmail.com">svromashkin@gmail.com</a></p>
       <img src="assets/photo.jpg" alt="Фото Сергея Ромашкина" class="headshot" loading="lazy">
 
       <div style="border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,0.08);">
-        <video id="heroVideo" preload="metadata" autoplay loop muted playsinline poster="assets/hero-poster.svg" style="width:100%;max-height:420px;display:block;object-fit:cover">
+        <div class="video-wrap"><video id="heroVideo" preload="metadata" autoplay loop muted playsinline poster="assets/hero-poster.svg" style="width:100%;max-height:420px;display:block;object-fit:cover">
           <source src="assets/hero.webm" type="video/webm">
           <source src="assets/hero.mp4" type="video/mp4">
           Ваш браузер не поддерживает видео. Смотрите обложку ниже.
-        </video>
+        </video></div>
       </div>
 
       <img src="assets/banner.jpg" loading="lazy" width="1600" height="640" class="banner" alt="Баннер" class="banner" loading="lazy">
 
       <p style="margin-top:16px">
-        <a class="btn" href="#contact">Связаться</a>
-        <a class="btn ghost" href="assets/CV.pdf" download>Скачать резюме (PDF)</a>
+        <a class="btn"  href="#contact" data-temp-hide="1"Связаться</a>
+        <a class="btn ghost"  href="assets/CV.pdf" download data-temp-hide="1"Скачать резюме (PDF)</a>
         <button class="btn" id="printBtn">Печать в PDF</button>
       </p>
     </section>
@@ -54,20 +59,20 @@
     <!-- EXECUTIVE SUMMARY -->
     <section id="exec" class="section wrap">
       <h2>Executive Summary</h2>
-        <video class="section-video" preload="metadata" autoplay muted loop playsinline poster="assets/exec-poster.jpg">
+        <div class="video-wrap"><video class="section-video" preload="metadata" autoplay muted loop playsinline poster="assets/exec-poster.jpg">
           <source src="assets/exec.webm" type="video/webm">
           <source src="assets/exec.mp4" type="video/mp4">
-        </video>
+        </video></div>
       <p>20+ лет управления полным циклом разработки газоконденсатных месторождений. Эксперт по интегрированным моделям, Digital Twin и внедрению ИИ для повышения эффективности добычи и управления активами. Формировал и реализовывал стратегии развития крупных газодобывающих активов с фокусом на рост конденсатоотдачи, снижение CAPEX/OPEX и цифровизацию производственного контура.</p>
     </section>
 
     <!-- КОМПЕТЕНЦИИ -->
     <section id="skills" class="section wrap">
       <h2>Ключевые компетенции</h2>
-        <video class="section-video" preload="metadata" autoplay muted loop playsinline poster="assets/skills-poster.jpg">
+        <div class="video-wrap"><video class="section-video" preload="metadata" autoplay muted loop playsinline poster="assets/skills-poster.jpg">
           <source src="assets/skills.webm" type="video/webm">
           <source src="assets/skills.mp4" type="video/mp4">
-        </video>
+        </video></div>
       <ul>
         <li>Интегрированные модели: Reservoir–Well–Network–Facility–Market; вероятностные IRM/FRM</li>
         <li>Digital Twin, AI-моделирование, ETL, ML-proxy, операционная аналитика</li>
@@ -82,10 +87,10 @@
     <!-- КАРЬЕРА -->
     <section id="career" class="section wrap">
       <h2>Карьера</h2>
-        <video class="section-video" preload="none" autoplay muted loop playsinline poster="assets/career-poster.jpg">
+        <div class="video-wrap"><video class="section-video" preload="none" autoplay muted loop playsinline poster="assets/career-poster.jpg">
           <source src="assets/career.webm" type="video/webm">
           <source src="assets/career.mp4" type="video/mp4">
-        </video>
+        </video></div>
       <article class="xp">
         <header><h3>АО «Роспан Интернешнл» (2018–н.в.) — Заместитель генерального директора – главный геолог / И.о. генерального директора</h3></header>
         <ul class="bullets">
@@ -118,10 +123,10 @@
     <!-- ПРОЕКТЫ -->
     <section id="projects" class="section wrap">
       <h2>Значимые проекты и инициативы</h2>
-        <video class="section-video" preload="none" autoplay muted loop playsinline poster="assets/projects-poster.jpg">
+        <div class="video-wrap"><video class="section-video" preload="none" autoplay muted loop playsinline poster="assets/projects-poster.jpg">
           <source src="assets/projects.webm" type="video/webm">
           <source src="assets/projects.mp4" type="video/mp4">
-        </video>
+        </video></div>
       <ul>
         <li>Трансграничные залежи: единые технологические схемы; координация Газпром/Новатэк/Роснефть; минимизация перетоков и потерь энергии</li>
         <li>Интегрированные вероятностные модели: минимизация геол., техн. и орг. рисков; балансировка эффектов между проектами</li>
@@ -134,10 +139,10 @@
     <!-- ОБРАЗОВАНИЕ -->
     <section id="education" class="section wrap">
       <h2>Образование</h2>
-        <video class="section-video" preload="none" autoplay muted loop playsinline poster="assets/education-poster.jpg">
+        <div class="video-wrap"><video class="section-video" preload="none" autoplay muted loop playsinline poster="assets/education-poster.jpg">
           <source src="assets/education.webm" type="video/webm">
           <source src="assets/education.mp4" type="video/mp4">
-        </video>
+        </video></div>
       <ul>
         <li>MBA, РГУ нефти и газа им. И. М. Губкина (2019–2021) — диплом: «Диверсификация бизнес-стратегий нефтегазовых компаний в условиях энергоперехода»</li>
         <li>Инженер по разработке газовых и газоконденсатных месторождений, Тюменский ГНГУ</li>
@@ -147,10 +152,10 @@
     <!-- ПУБЛИКАЦИИ / НАГРАДЫ -->
     <section id="pubs" class="section wrap">
       <h2>Публикации и награды (выборочно)</h2>
-        <video class="section-video" preload="none" autoplay muted loop playsinline poster="assets/pubs-poster.jpg">
+        <div class="video-wrap"><video class="section-video" preload="none" autoplay muted loop playsinline poster="assets/pubs-poster.jpg">
           <source src="assets/pubs.webm" type="video/webm">
           <source src="assets/pubs.mp4" type="video/mp4">
-        </video>
+        </video></div>
       <ul>
         <li>25+ публикаций (SPE, IPTC, SpringerLink, РГУ нефти и газа)</li>
         <li>Победитель корпоративного конкурса «Лучший наставник» (2023)</li>
@@ -178,7 +183,7 @@
             <p class="muted">Сети:</p>
             <p>
               <a href="https://github.com/svromashkin" target="_blank" rel="noopener">GitHub</a> ·
-              <a href="https://www.linkedin.com/in/svromashkin" target="_blank" rel="noopener">LinkedIn</a>
+              <!-- LinkedIn hidden -->
             </p>
           </div>
         </div>

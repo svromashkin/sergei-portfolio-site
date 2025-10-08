@@ -1,0 +1,2 @@
+/* NAV container padding fix */
+nav .container{padding:0 var(--pad)}

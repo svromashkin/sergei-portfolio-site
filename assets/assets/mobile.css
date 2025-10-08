@@ -1,0 +1,107 @@
+/* ====== Mobile-first baseline ====== */
+:root{
+  --maxw: 960px;
+  --pad: 16px;
+  --lh: 1.6;
+  --fs-body: 17px;
+  --fs-h1: clamp(28px, 6vw, 42px);
+  --fs-h2: clamp(22px, 4.5vw, 32px);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-size:var(--fs-body); line-height:var(--lh); -webkit-text-size-adjust:100%}
+.container{width:100%; max-width:var(--maxw); margin:0 auto; padding:0 var(--pad)}
+main,.section,.block{width:100%}
+p{margin:0 0 1rem}
+img,video{max-width:100%; height:auto; display:block}
+
+/* ====== Top nav (горизонтальный скролл без переполнения) ====== */
+nav{position:sticky; top:0; background:#fff; z-index:10; border-bottom:1px solid #eee}
+nav .tabs{display:flex; gap:12px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding:8px var(--pad)}
+nav .tabs a{white-space:nowrap; text-decoration:none; padding:6px 10px; border-radius:12px; border:1px solid #ddd; font-size:15px}
+nav .tabs::-webkit-scrollbar{display:none}
+
+/* ====== Видео-блоки: резиновые, без фиксированных высот ====== */
+.video-wrap{position:relative; width:100%; aspect-ratio:16/9; background:#000}
+.video-wrap video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+
+/* ====== Текстовые блоки: ширина = ширине видео, выравнивание ====== */
+.section{padding:20px 0}
+.section .content{margin:0 auto}
+.section .content.narrow{max-width: 70ch}
+.section h1{font-size:var(--fs-h1); line-height:1.2; margin:12px 0}
+.section h2{font-size:var(--fs-h2); line-height:1.25; margin:16px 0 8px}
+
+/* ====== Фото профиля как адаптивный блок (место под новую фотографию) ====== */
+.profile-photo{max-width:220px; border-radius:12px; overflow:hidden; margin:12px 0}
+@media (min-width: 640px){
+  .profile-photo{max-width:280px}
+}
+
+/* ====== Кнопки: временно можно скрывать отдельные (сделаем далее) ====== */
+.actions{display:flex; flex-wrap:wrap; gap:10px}
+
+/* ====== Desktop улучшения ====== */
+@media (min-width: 980px){
+  :root{--fs-body:18px}
+  nav .tabs a{font-size:16px}
+}
+
+/* ====== Печать: без картинок/видео, без пустых мест, только текст ====== */
+@media print{
+  /* убираем все img и video */
+  img, video, .video-wrap, .profile-photo, nav, .actions { display:none !important; height:0 !important; padding:0 !important; margin:0 !important; border:0 !important; }
+  /* растягиваем текст на всю ширину листа */
+  .container, .section, .content { width:100% !important; max-width:none !important; padding:0 !important; margin:0 0 12pt 0 !important; }
+  body{font-size:12pt; line-height:1.4}
+  h1{font-size:18pt; margin:0 0 8pt}
+  h2{font-size:14pt; margin:12pt 0 6pt}
+  a[href]:after{content:" (" attr(href) ")"; font-size:10pt}
+}
+
+/* ====== Hero (баннер + имя + телефон + фото) ====== */
+.hero{position:relative}
+.hero-banner{
+  width:100%;
+  height: clamp(120px, 24vw, 220px);
+  background: linear-gradient(135deg,#0f172a, #1e293b 55%, #334155);
+}
+.hero-inner{
+  display:flex; gap:16px; align-items:flex-end; padding:12px 0; flex-wrap:wrap;
+}
+.hero-text{flex:1 1 280px}
+.hero-name{
+  font-size: clamp(28px, 7vw, 48px);
+  line-height:1.1; color:#0f172a; margin:12px 0 4px;
+}
+.hero-contact .tel{
+  font-size: clamp(16px, 4.5vw, 18px); text-decoration:none; color:#0f172a;
+  border-bottom:1px dashed rgba(15,23,42,.35);
+}
+.hero + nav{margin-top:0}
+
+/* фото уже адаптивно через .profile-photo из базового блока */
+
+/* Временное скрытие кнопок по атрибуту */
+a[data-temp-hide="1"]{display:none !important}
+
+/* Текстовые контейнеры — центровка ширины под видео */
+.section .content{
+  max-width: 70ch;
+  padding: 0 var(--pad);
+}
+@media (min-width: 768px){
+  .section .content{max-width: 80ch}
+}
+
+/* Мягкая центровка заголовков секций на мобиле */
+@media (max-width: 640px){
+  .section h1,.section h2{text-wrap:balance}
+}
+
+/* Печать — телефон виден, шапка без баннера/фото */
+@media print{
+  .hero-banner, .profile-photo{display:none !important}
+  .hero-name{margin:0 0 4pt}
+  .hero-contact{margin:0 0 8pt}
+}
