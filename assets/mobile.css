@@ -153,3 +153,194 @@ video, .video-wrap{
 @media (min-width: 768px){
   .video-wrap{ margin: 18px 0 26px !important; }
 }
+
+/* ==== ULTRA-OVERRIDE: видео всегда в нормальном потоке, с воздухом и без налезаний ==== */
+
+/* 1) Универсально для всех видео в документе */
+video{
+  position: static !important;
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+  transform: none !important;
+  top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
+  margin: 14px 0 22px !important;
+  clear: both !important;
+  z-index: 1 !important;
+}
+
+/* 2) Для наиболее вероятных контейнеров */
+.video-wrap, .block, .wrap, .section, .content, main{
+  position: relative !important;
+  z-index: 2 !important;
+  background: #fff !important;
+  overflow: visible !important;
+}
+
+/* 3) На случай, если где-то видео делали фиксированным/липким */
+video[style*="position:fixed"], video[style*="position:sticky"], 
+.video-wrap[style*="position:fixed"], .video-wrap[style*="position:sticky"]{
+  position: static !important;
+}
+
+/* 4) Убираем отрицательные отступы и трансформы у видео/контейнеров рядом с текстом */
+video, .video-wrap, .block video, .wrap video{
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  transform: none !important;
+}
+
+/* 5) Разделители (clearfix) до и после каждого видео, чтобы текст не поджимался */
+video::before, video::after{
+  content: "";
+  display: block !important;
+  clear: both !important;
+  height: 0 !important;
+  visibility: hidden !important;
+}
+
+/* 6) Немного воздуха у заголовков рядом с видео */
+.section h1, .section h2{
+  margin-top: 16px !important;
+}
+
+/* 7) На планшете/десктопе — чуть больше воздуха */
+@media (min-width: 768px){
+  video{ margin: 18px 0 26px !important; }
+}
+
+/* ==== ULTRA HARD OVERRIDES (beat inline + exotic selectors) ==== */
+
+/* Стек слоёв секций независим, текст всегда над фоном */
+.section, .section .content, main, .wrap, .block {
+  position: relative !important;
+  z-index: 2 !important;
+  background: #fff !important;
+  isolation: isolate !important;
+  transform: none !important;
+  top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
+}
+
+/* Контейнер видео — обычный блок, без липкости/абсолютов */
+.video-wrap, [class*="video"], [id*="video"] {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 16px 0 24px !important;
+  padding: 0 !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+  clear: both !important;
+  transform: none !important;
+  top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
+}
+
+/* Бьём inline-стили у <video>: position/size/transform/z-index */
+video, video[style], [class*="video"] video, [id*="video"] video {
+  position: static !important;
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+  transform: none !important;
+  top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
+  margin: 0 !important;
+  z-index: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* Если где-то делали sticky/fixed — снимаем */
+video[style*="position:fixed"], video[style*="position:sticky"],
+[class*="video"][style*="position:fixed"], [class*="video"][style*="position:sticky"] {
+  position: static !important;
+}
+
+/* На случай отрицательных отступов/смещений, задаём безопасные поля у текста */
+.section .content {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Нав всегда поверх всего, чтобы не дрожал */
+nav { z-index: 1000 !important; }
+
+/* Визуальный "маячок" оставляем до конца правок */
+
+/* ==== THEME FIX: возвращаем тёмную тему и читаемость ==== */
+body{
+  background:#0b1220 !important;         /* тёмный фон */
+  color:#e5e7eb !important;               /* светлый текст */
+}
+a{ color:#93c5fd; }
+h1,h2,h3,h4,h5,h6{ color:#f3f4f6 !important; }
+
+/* Снимаем ранее навязанный белый фон у секций/контента */
+.section, .section .content, main, .wrap, .block{
+  background: transparent !important;
+}
+
+/* Навигационная панель — слегка затемняем фон для контраста */
+nav{
+  background: rgba(15,23,42,0.85) !important;
+  backdrop-filter: saturate(120%) blur(6px);
+  -webkit-backdrop-filter: saturate(120%) blur(6px);
+  border-bottom: 1px solid rgba(148,163,184,0.25) !important;
+}
+
+/* Табы в навигации — светлее на тёмном фоне */
+nav .tabs a{
+  border-color: rgba(148,163,184,0.35) !important;
+  color:#e5e7eb !important;
+}
+
+/* ==== VIDEO GEOMETRY FIX: контейнер и видео совпадают ==== */
+/* 1) Контейнер делает aspect-ratio 16:9, режет края аккуратно */
+.video-wrap{
+  position: relative !important;
+  width: 100% !important;
+  aspect-ratio: 16/9 !important;
+  margin: 16px 0 24px !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  background:#000 !important;            /* чёрный фон под видео */
+  padding: 0 !important;                 /* без паддингов, чтобы не смещалось */
+}
+
+/* 2) Само видео заполняет контейнер без смещения */
+.video-wrap > video{
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: cover !important;          /* аккуратно заполняем без полос */
+  margin: 0 !important;
+  transform: none !important;
+  z-index: 1 !important;
+}
+
+/* 3) На случай, если где-то стоят inline-правила — бьём их повышенной специфичностью */
+.section .video-wrap > video,
+.wrap .video-wrap > video,
+.block .video-wrap > video{
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+/* 4) Текстовые блоки — над фоном, но не перекрывают видео в своём контейнере */
+.section, .section .content, main{ z-index: 2 !important; position: relative !important; }
+
+/* 5) Немного больше воздуха на планшетах/десктопах */
+@media (min-width: 768px){
+  .video-wrap{ margin: 20px 0 28px !important; }
+}
