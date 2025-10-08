@@ -34,18 +34,27 @@
 
   <main id="main">
     <!-- HERO c видео -->
-      <header id="hero" class="hero">
-    <div class="hero-banner"></div>
-    <div class="container">
-      <div class="hero-inner">
-        <div class="hero-text">
-          <h1 class="hero-name">Сергей Ромашкин</h1>
-          <p class="hero-contact"><a class="tel" href="tel:+1-555-000-0000">+1&nbsp;555&nbsp;000&nbsp;0000</a></p>
-        </div>
-        <div class="profile-photo"><img src="assets/profile_new.jpg" alt="Фото Сергея" loading="lazy"></div>
+    <section class="hero wrap section" id="hero" style="padding-top:28px">
+      <h1 style="margin-bottom:8px;">SVP Subsurface & Digital (E&amp;P) / Директор по интегрированному развитию месторождений</h1>
+      <p class="lead" style="margin-bottom:14px;">г. Новый Уренгой · <a href="mailto:svromashkin@gmail.com">svromashkin@gmail.com</a></p>
+      <img src="assets/photo.jpg" alt="Фото Сергея Ромашкина" class="headshot" loading="lazy">
+
+      <div style="border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,0.08);">
+        <div class="video-wrap"><video id="heroVideo" preload="metadata" autoplay loop muted playsinline poster="assets/hero-poster.svg" style="width:100%;max-height:420px;display:block;object-fit:cover">
+          <source src="assets/hero.webm" type="video/webm">
+          <source src="assets/hero.mp4" type="video/mp4">
+          Ваш браузер не поддерживает видео. Смотрите обложку ниже.
+        </video></div>
       </div>
-    </div>
-  </header>
+
+      <img src="assets/banner.jpg" loading="lazy" width="1600" height="640" class="banner" alt="Баннер" class="banner" loading="lazy">
+
+      <p style="margin-top:16px">
+        <a class="btn"  href="#contact" data-temp-hide="1"Связаться</a>
+        <a class="btn ghost"  href="assets/CV.pdf" download data-temp-hide="1"Скачать резюме (PDF)</a>
+        <button class="btn" id="printBtn">Печать в PDF</button>
+      </p>
+    </section>
 
     <!-- EXECUTIVE SUMMARY -->
     <section id="exec" class="section wrap">
