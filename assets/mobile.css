@@ -857,3 +857,46 @@ h1[id], h2[id], h3[id]{
   #topnav .tabs a:nth-child(5)::before{ content:"🧾"; }   /* Публикации / Статьи */
   #topnav .tabs a:nth-child(6)::before{ content:"📞"; }   /* Контакты */
 }
+/* ===== Mobile: no horizontal scroll, multi-row grid-style ===== */
+@media (max-width: 480px){
+  #topnav .tabs{
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    row-gap: 8px !important;
+    column-gap: 10px !important;
+    overflow-x: visible !important;   /* отключаем горизонтальный скролл */
+    padding: 10px var(--pad) !important;
+  }
+  #topnav a{
+    flex: 1 1 calc(33.33% - 10px) !important;  /* 3 колонки */
+    min-width: 0 !important;
+    text-align: center !important;
+    padding: 8px 6px !important;
+    font-size: 14px !important;
+    line-height: 1.15 !important;
+  }
+}
+
+/* Очень узкие экраны — 2 колонки, ещё компактнее */
+@media (max-width: 360px){
+  #topnav a{
+    flex-basis: calc(50% - 10px) !important;   /* 2 колонки */
+    font-size: 13px !important;
+    padding: 8px 5px !important;
+  }
+}
+
+/* ===== (Опционально) Иконки к пунктам меню на мобиле (без правки HTML) ===== */
+/* Если порядок ссылок стабилен — зададим эмодзи-иконки по порядку. Можно поменять по вкусу. */
+@media (max-width: 480px){
+  #topnav a::before{
+    display:block; font-size:18px; line-height:1; margin-bottom:4px; opacity:.95;
+    /* цвет наследуется; при желании можно осветлить: filter: contrast(1.1) */
+  }
+  #topnav .tabs a:nth-child(1)::before{ content:"🧭"; }   /* Summary */
+  #topnav .tabs a:nth-child(2)::before{ content:"🧠"; }   /* Компетенции */
+  #topnav .tabs a:nth-child(3)::before{ content:"📂"; }   /* Проекты / Портфолио */
+  #topnav .tabs a:nth-child(4)::before{ content:"💼"; }   /* Опыт / Резюме */
+  #topnav .tabs a:nth-child(5)::before{ content:"🧾"; }   /* Публикации / Статьи */
+  #topnav .tabs a:nth-child(6)::before{ content:"📞"; }   /* Контакты */
+}
