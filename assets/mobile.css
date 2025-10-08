@@ -1120,3 +1120,69 @@ h1[id], h2[id], h3[id]{
   }
   .hero-contact{ display:none !important; }
 }
+/* ===== MOBILE HARD FIX (<= 600px) ===== */
+@media (max-width: 600px){
+  /* 1) Прячем hero, чтобы не раздувал высоту и не конфликтовал по слоям */
+  .hero, .hero *{ display: none !important; }
+  body{ padding-top: 56px !important; } /* под фиксированное меню */
+
+  /* 2) #topnav всегда во всю ширину, поверх всего, кликабельно */
+  #topnav{
+    position: fixed !important;
+    top: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important;
+    z-index: 2147483647 !important;
+    background: rgba(15,23,42,0.98) !important;
+    border-bottom: 1px solid rgba(148,163,184,0.25) !important;
+    pointer-events: auto !important;
+  }
+  #topnav .container{
+    max-width: none !important;
+    width: 100% !important;
+    padding: 8px var(--pad) !important;
+  }
+
+  /* 3) Сетка иконок БЕЗ текста — без горизонтального скролла */
+  #topnav .tabs{
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0,1fr)) !important; /* 4 в ряд */
+    gap: 10px !important;
+    justify-items: center !important;
+    align-items: center !important;
+    overflow: visible !important;
+    padding: 4px 0 !important;
+  }
+  /* очень узкие экраны — 3 в ряд */
+  @media (max-width: 360px){
+    #topnav .tabs{ grid-template-columns: repeat(3, minmax(0,1fr)) !important; }
+  }
+
+  /* 4) Плитки-иконки: текст прячем, клик — по квадрату 44–48px */
+  #topnav a{
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 48px !important; height: 48px !important;
+    padding: 0 !important; border-radius: 12px !important;
+    background: rgba(255,255,255,0.06) !important;
+    font-size: 0 !important; line-height: 0 !important; white-space: nowrap !important;
+    border: none !important; box-shadow: none !important; outline: none !important;
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
+  }
+  #topnav a:active{ transform: scale(0.98); }
+
+  /* 5) Иконки через ::before (подгони порядок при необходимости) */
+  #topnav a::before{
+    content: "•"; display: block !important; font-size: 22px !important; line-height: 1 !important; color: #e5e7eb !important;
+  }
+  #topnav .tabs a:nth-child(1)::before{ content:"🧭" !important; } /* Summary */
+  #topnav .tabs a:nth-child(2)::before{ content:"🧠" !important; } /* Компетенции */
+  #topnav .tabs a:nth-child(3)::before{ content:"📂" !important; } /* Проекты */
+  #topnav .tabs a:nth-child(4)::before{ content:"💼" !important; } /* Опыт */
+  #topnav .tabs a:nth-child(5)::before{ content:"🧾" !important; } /* Публикации */
+  #topnav .tabs a:nth-child(6)::before{ content:"📞" !important; } /* Контакты */
+
+  /* 6) На мобиле отключаем любые горизонтальные скроллы у меню */
+  #topnav .tabs::-webkit-scrollbar{ display:none !important; }
+  #topnav .tabs, #topnav .menu{ overflow-x: visible !important; }
+}
