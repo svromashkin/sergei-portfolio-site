@@ -169,3 +169,21 @@ if (printBtn) {
   window.addEventListener('hashchange', setIcons);
   window.addEventListener('resize', setIcons);
 })();
+// === bottom-nav icons mapping (stable, veryfinal) ===
+document.addEventListener('DOMContentLoaded', () => {
+  const nav = document.querySelector('#topnav');
+  if (!nav) return;
+  nav.querySelectorAll('a').forEach(a => {
+    const t = (a.textContent || "").toLowerCase();
+    const h = (a.getAttribute("href") || "").toLowerCase();
+    if (a.dataset.ico) return; // уже есть
+    let icon = "❖";
+    if (/summ|about|глав/.test(t+h)) icon = "🧭";
+    else if (/компет|skill/.test(t+h)) icon = "🧠";
+    else if (/proj|портф/.test(t+h)) icon = "📂";
+    else if (/exp|резюме|career/.test(t+h)) icon = "💼";
+    else if (/pub|стать|article/.test(t+h)) icon = "🧾";
+    else if (/cont|контакт|tel|phone/.test(t+h)) icon = "📞";
+    a.dataset.ico = icon;
+  });
+});
