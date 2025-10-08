@@ -26,3 +26,9 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     }
   });
 });
+
+// кнопка печати в PDF
+const printBtn = document.getElementById('printBtn');
+if (printBtn) {
+  printBtn.addEventListener('click', () => window.print());
+}
