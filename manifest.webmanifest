@@ -1,0 +1,11 @@
+{
+  "name": "Сайт-визитка — Сергей Ромашкин",
+  "short_name": "SR CV",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0b1020",
+  "theme_color": "#0ea5e9",
+  "icons": [
+    { "src": "assets/favicon.svg", "sizes": "64x64", "type": "image/svg+xml" }
+  ]
+}
