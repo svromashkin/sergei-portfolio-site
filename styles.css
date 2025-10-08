@@ -197,3 +197,9 @@ main { display: flex; flex-direction: column; gap: 24px; }
 /* tiny polish */
 #hero video { border: none; }
 .hero { padding-bottom: 12px; }
+
+/* section videos */
+.section-video { width:100%; max-width: 1000px; display:block; margin:12px auto 8px; border-radius:12px; }
+@media (max-width: 768px){
+  .section-video { border-radius:12px; }
+}

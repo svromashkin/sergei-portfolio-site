@@ -53,3 +53,27 @@ if (printBtn) {
   // страховка: на тач-устройствах без автоплея — попытаться стартануть через жест
   document.addEventListener('touchstart', () => v.play().catch(()=>{}), { once: true, passive: true });
 })();
+
+// автопауза секционных видео + fade-in по видимости
+(() => {
+  const vids = Array.from(document.querySelectorAll('.section-video'));
+  if (!vids.length || !('IntersectionObserver' in window)) return;
+
+  vids.forEach(v => v.style.opacity = '0');
+
+  const onVis = (entries) => {
+    for (const e of entries) {
+      const v = e.target;
+      if (e.isIntersecting) {
+        v.play().catch(()=>{});
+        v.style.transition = 'opacity .6s ease';
+        v.style.opacity = '1';
+      } else {
+        v.pause();
+      }
+    }
+  };
+
+  const io = new IntersectionObserver(onVis, { root: null, threshold: 0.25 });
+  vids.forEach(v => io.observe(v));
+})();
