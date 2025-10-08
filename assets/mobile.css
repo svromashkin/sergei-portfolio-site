@@ -768,3 +768,33 @@ main, .section, .wrap, .block{ position:relative !important; z-index:1 !importan
   height: clamp(120px, 24vw, 220px) !important;
   background: linear-gradient(135deg,#0f172a, #1e293b 55%, #334155) !important;
 }
+/* === SECTION ORDER: H(1/2) -> TEXT -> VIDEO === */
+.section{
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* 1) Любые заголовки секции идут первыми */
+.section :is(h1,h2){
+  order: 1 !important;
+}
+
+/* 2) Видео-блок всегда последним */
+.section .video-wrap{
+  order: 3 !important;
+}
+
+/* 3) Всё остальное (абзацы, списки, .content, .wrap, .block и т.п.) — вторыми */
+.section > :not(.video-wrap):not(:is(h1,h2)),
+.section .content,
+.section .wrap,
+.section .block,
+.section p,
+.section ul,
+.section ol{
+  order: 2 !important;
+}
+
+/* Чуточку воздуха между текстом и видео */
+.section .content{ margin-bottom: 8px !important; }
+.section .video-wrap{ margin-top: 10px !important; }
