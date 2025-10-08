@@ -344,3 +344,174 @@ nav .tabs a{
 @media (min-width: 768px){
   .video-wrap{ margin: 20px 0 28px !important; }
 }
+
+/* --- NAV/TABS CLEANUP --- */
+/* Контейнер вкладок — аккуратная строка, без хаоса */
+nav .tabs{
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  padding: 10px var(--pad) !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  scroll-snap-type: x mandatory !important;
+}
+
+/* Сами пункты меню: без рамок/контуров/теней, ровная типографика */
+nav .tabs a{
+  flex: 0 0 auto !important;      /* фиксированная ширина по контенту на мобиле */
+  scroll-snap-align: start !important;
+  white-space: nowrap !important;
+  text-decoration: none !important;
+  font-size: 15px !important;
+  line-height: 1.2 !important;
+  font-weight: 500 !important;
+  color: #e5e7eb !important;       /* светлый текст на тёмном фоне */
+  padding: 8px 10px !important;
+
+  /* УБИРАЕМ «контур»: */
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+
+/* Ховер/актив — только нижний индикатор */
+nav .tabs a:hover,
+nav .tabs a:focus{
+  text-decoration: underline !important;
+  text-underline-offset: 3px !important;
+}
+nav .tabs a.active{
+  border-bottom: 2px solid #60a5fa !important; /* мягкий индикатор активного */
+}
+
+/* Десктоп: ровное центрирование и «равномерность» расположения */
+@media (min-width: 980px){
+  nav .tabs{
+    justify-content: center !important;
+    gap: 18px !important;
+  }
+  nav .tabs a{
+    font-size: 16px !important;
+    padding: 10px 12px !important;
+  }
+}
+
+/* Снимаем наш ранний зелёный «маячок» и ставим аккуратную линию */
+nav{
+  border-bottom: 1px solid rgba(148,163,184,0.25) !important;
+}
+/* === NAV ABOVE HERO & CLICKABLE === */
+nav{
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 9999 !important;
+  pointer-events: auto !important;
+  border-bottom: 1px solid rgba(148,163,184,0.25) !important; /* тонкая линия */
+}
+.hero{
+  position: relative !important;
+  z-index: 0 !important;            /* герой ниже меню */
+}
+.hero-banner{
+  position: relative !important;
+  z-index: 0 !important;
+  pointer-events: none !important;   /* баннер не перехватывает клики по меню */
+}
+.hero-inner{
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Чистим оформление пунктов меню: без рамок/фонов */
+nav .tabs a{
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  color: #e5e7eb !important;
+  white-space: nowrap !important;
+  text-decoration: none !important;
+  padding: 8px 10px !important;
+  font-weight: 500 !important;
+}
+nav .tabs{
+  display:flex !important; gap:14px !important; align-items:center !important;
+  overflow-x:auto !important; -webkit-overflow-scrolling:touch !important;
+  padding:10px var(--pad) !important;
+}
+@media (min-width: 980px){
+  nav .tabs{ justify-content:center !important; gap:18px !important; }
+  nav .tabs a{ font-size:16px !important; padding:10px 12px !important; }
+}
+/* ==== NAV ALWAYS ON TOP, CLICKABLE ==== */
+nav{
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 99999 !important;
+  pointer-events: auto !important;
+  background: rgba(15,23,42,0.9) !important;
+  border-bottom: 1px solid rgba(148,163,184,0.25) !important;
+}
+
+/* Герой ниже, баннер не ловит клики и не наезжает */
+.hero{ position: relative !important; z-index: 0 !important; }
+.hero-banner{ pointer-events: none !important; position: relative !important; z-index: 0 !important; }
+.hero-inner{ position: relative !important; z-index: 1 !important; }
+
+/* ==== MENU ITEMS: убрать рамки/контуры/фоны при любом селекторе ==== */
+nav a,
+nav .tabs a,
+nav .container a,
+nav li a,
+nav .menu a,
+nav .nav a{
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  color: #e5e7eb !important;
+  white-space: nowrap !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  padding: 8px 10px !important;
+}
+
+/* Ровная раскладка пунктов меню */
+nav .tabs, nav .menu, nav .container{
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  padding: 10px var(--pad) !important;
+}
+@media (min-width: 980px){
+  nav .tabs, nav .menu, nav .container{
+    justify-content: center !important;
+    gap: 18px !important;
+  }
+  nav a{ font-size: 16px !important; padding: 10px 12px !important; }
+}
+
+/* Нижний индикатор для активного */
+nav a.active{ border-bottom: 2px solid #60a5fa !important; }
+
+/* Если где-то на a навесили border через id/class — гасим это тоже */
+nav a[class*="btn"], nav a[id*="btn"], nav a[class*="tag"], nav a[id*="tag"]{
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Доп. защита от перекрытия меню контентом ниже */
+main, .section, .wrap, .block{
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Небольшая подстраховка: отступ сверху у контента, если вдруг меню наползает */
+body{ scroll-padding-top: 64px !important; }
