@@ -163,3 +163,33 @@ ul li{ margin: 6px 0; }
   .site-header, .btn { display:none !important; }
   .section{ padding: 16px 0; border:0; }
 }
+
+/* === 2025 minimalist adaptive patch === */
+html, body { scroll-behavior: smooth; font-size: 16px; }
+img, video { max-width: 100%; height: auto; border-radius: 12px; }
+
+main { display: flex; flex-direction: column; gap: 24px; }
+
+@media (max-width: 768px){
+  .wrap { padding: 0 12px; }
+  h1, h2, h3 { word-wrap: break-word; }
+  .nav { flex-direction: column; align-items: flex-start; gap: 6px; }
+}
+
+@media (min-width: 1024px){
+  .hero { padding-top: 60px; }
+  .section { padding: 40px 0; }
+}
+
+/* контент ровный, чистый */
+.section p, .section ul, .section li { max-width: 800px; margin-left: auto; margin-right: auto; }
+.section h2 { text-align: center; }
+
+/* улучшенные кнопки */
+.btn, .btn.ghost {
+  transition: all .25s ease;
+}
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(14,165,233,0.3);
+}
