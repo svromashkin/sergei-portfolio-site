@@ -122,3 +122,27 @@ if (printBtn) {
     if(id) scrollToId(id);
   });
 })();
+
+// === Mobile bottom-nav icons mapping v2 ===
+(function(){
+  function setIcons(){
+    var nav = document.getElementById('topnav');
+    if(!nav) return;
+    var links = nav.querySelectorAll('.tabs a');
+    links.forEach(function(a){
+      var t = (a.textContent || "").toLowerCase();
+      var h = (a.getAttribute('href') || "").toLowerCase();
+      var icon = "❖";
+      if (/summ|summary|глав|о мне|about/.test(t+h)) icon = "🧭";
+      else if (/компет|skills|skill|навык/.test(t+h)) icon = "🧠";
+      else if (/proj|портф|works|cases|case/.test(t+h)) icon = "📂";
+      else if (/exp|опыт|career|cv|резюме/.test(t+h)) icon = "💼";
+      else if (/pub|стать|articles|blog/.test(t+h)) icon = "🧾";
+      else if (/cont|контакт|phone|tel/.test(t+h)) icon = "📞";
+      a.setAttribute("data-ico", icon);
+    });
+  }
+  document.addEventListener('DOMContentLoaded', setIcons);
+  window.addEventListener('hashchange', setIcons);
+  window.addEventListener('resize', setIcons);
+})();
