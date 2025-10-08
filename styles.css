@@ -193,3 +193,7 @@ main { display: flex; flex-direction: column; gap: 24px; }
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(14,165,233,0.3);
 }
+
+/* tiny polish */
+#hero video { border: none; }
+.hero { padding-bottom: 12px; }

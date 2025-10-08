@@ -32,3 +32,24 @@ const printBtn = document.getElementById('printBtn');
 if (printBtn) {
   printBtn.addEventListener('click', () => window.print());
 }
+
+// авто-пауза/плей видео по видимости
+(() => {
+  const v = document.getElementById('heroVideo');
+  if (!v || !('IntersectionObserver' in window)) return;
+
+  const onVis = (entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) {
+        v.play().catch(()=>{});
+      } else {
+        v.pause();
+      }
+    }
+  };
+  const io = new IntersectionObserver(onVis, { root: null, threshold: 0.25 });
+  io.observe(v);
+
+  // страховка: на тач-устройствах без автоплея — попытаться стартануть через жест
+  document.addEventListener('touchstart', () => v.play().catch(()=>{}), { once: true, passive: true });
+})();
