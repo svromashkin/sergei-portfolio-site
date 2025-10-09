@@ -187,3 +187,21 @@ document.addEventListener('DOMContentLoaded', () => {
     a.dataset.ico = icon;
   });
 });
+// bottom-nav icons mapping FIX
+document.addEventListener('DOMContentLoaded', () => {
+  const nav = document.getElementById('topnav');
+  if (!nav) return;
+  nav.querySelectorAll('a').forEach(a => {
+    if (a.dataset.ico) return;
+    const t = (a.textContent||"").toLowerCase();
+    const h = (a.getAttribute('href')||"").toLowerCase();
+    let icon = "❖";
+    if (/summ|about|глав/.test(t+h)) icon = "🧭";
+    else if (/компет|skill/.test(t+h)) icon = "🧠";
+    else if (/proj|портф/.test(t+h)) icon = "📂";
+    else if (/exp|резюме|career/.test(t+h)) icon = "💼";
+    else if (/pub|стать|article/.test(t+h)) icon = "🧾";
+    else if (/cont|контакт|tel|phone/.test(t+h)) icon = "📞";
+    a.dataset.ico = icon;
+  });
+});
