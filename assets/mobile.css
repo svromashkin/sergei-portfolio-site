@@ -1529,3 +1529,50 @@ h1[id], h2[id], h3[id]{
   }
 }
 /* === /MOBILE BOTTOM NAV • FULL-WIDTH GRID OVERRIDE === */
+
+/* === MOBILE BOTTOM NAV • FULL-WIDTH GRID OVERRIDE === */
+@media (max-width: 600px){
+  /* 0) Сам nav — стопроцентная ширина вьюпорта */
+  #topnav{
+    left: 0 !important; right: 0 !important; width: 100vw !important;
+  }
+
+  /* 1) Делаем грид на САМОМ контейнере: 6 равных колонок */
+  #topnav .container{
+    display: grid !important;
+    grid-template-columns: repeat(6, 1fr) !important;
+    grid-auto-flow: column !important;
+    gap: 8px !important;
+    padding: 8px 10px !important;
+    max-width: none !important; width: 100% !important; margin: 0 !important;
+  }
+
+  /* 2) Любой прямой потомок-контейнер разворачиваем в «прозрачный» */
+  #topnav .container > *{
+    display: contents !important;  /* убираем лишние обёртки, якоря станут прямыми детьми грида */
+  }
+
+  /* 3) Ссылки — заполняют свою колонку на 100% ширины */
+  #topnav a{
+    width: 100% !important;
+    height: clamp(44px, 12vw, 56px) !important;
+    justify-self: stretch !important;
+    align-self: stretch !important;
+    /* визуал иконок — как раньше */
+    display: inline-flex !important; align-items: center !important; justify-content: center !important;
+    background: rgba(255,255,255,0.08) !important; border-radius: 12px !important;
+    border: none !important; box-shadow: none !important; outline: none !important;
+    color:#e5e7eb !important; font-size:0 !important; line-height:0 !important; white-space:nowrap !important;
+    text-indent:-9999px !important; overflow:hidden !important;
+    pointer-events:auto !important; touch-action:manipulation !important;
+  }
+
+  /* 4) Только иконка через ::before, размер — адаптивный */
+  #topnav a > *{ display:none !important; }
+  #topnav a::before{
+    content: attr(data-ico, "❖") !important;
+    display:block !important; font-size: clamp(18px, 5vw, 24px) !important; line-height:1 !important; color:#e5e7eb !important;
+    text-indent:0 !important;
+  }
+}
+/* === /MOBILE BOTTOM NAV • FULL-WIDTH GRID OVERRIDE === */
