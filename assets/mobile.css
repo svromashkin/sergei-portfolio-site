@@ -2062,3 +2062,16 @@ h1[id], h2[id], h3[id]{
 }
 .profile-photo{ max-width: clamp(120px, 20vw, 260px) !important; border-radius:14px !important; overflow:hidden !important; }
 .profile-photo img{ width:100%; height:auto; display:block; }
+
+/* === HERO WRAP STABILIZE (no word splits) === */
+.hero-name{
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
+  hyphens: none !important;
+  text-align: left !important;
+}
+/* На десктопе даём ширину под длинное слово "Вячеславович" */
+@media (min-width: 981px){
+  .hero-text{ max-width: 32ch !important; } /* было 26ch — увеличим, чтобы 3-я строка не ломалась */
+  .hero-name{ font-size: clamp(36px, 3.5vw, 64px) !important; line-height:1.08 !important; }
+}
