@@ -2082,3 +2082,8 @@ h1[id], h2[id], h3[id]{
   color: inherit; text-decoration: underline;
   word-break: break-word;
 }
+
+/* contacts: list under "Сети:" */
+#contact .net-list{ list-style:none; padding-left:0; margin:6px 0 0; }
+#contact .net-list li{ margin:4px 0; }
+#contact .net-list a{ color:inherit; text-decoration:underline; }
