@@ -1953,3 +1953,43 @@ h1[id], h2[id], h3[id]{
     overflow: hidden;
   }
 }
+  }
+}
+
+/* === HERO RESTORE FIX === */
+#hero, .hero, .hero-banner, .hero-inner, .hero-text {
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
+.hero-banner {
+  min-height: clamp(160px, 24vw, 280px);
+  background: linear-gradient(135deg, rgba(15,23,42,.85), rgba(30,41,59,.55) 55%, rgba(51,65,85,.35)),
+              url("assets/banner.jpg") center/cover no-repeat !important;
+  border-bottom: 1px solid rgba(148,163,184,.15);
+}
+.hero-name {
+  font-size: clamp(36px, 4vw, 72px) !important;
+  color: #f8fafc !important;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 16px 0 0 0;
+}
+@media (max-width: 768px) {
+  .hero-inner {
+    display:grid !important;
+    grid-template-columns: 1fr auto !important;
+    gap: 10px;
+    align-items:end;
+    padding:12px;
+  }
+  .hero-name {
+    font-size: clamp(28px, 7vw, 40px) !important;
+    line-height:1.15;
+  }
+  .profile-photo {
+    max-width: 120px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+}
