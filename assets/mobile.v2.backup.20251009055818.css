@@ -1,0 +1,1681 @@
+/* ====== Mobile-first baseline ====== */
+:root{
+  --maxw: 960px;
+  --pad: 16px;
+  --lh: 1.6;
+  --fs-body: 17px;
+  --fs-h1: clamp(28px, 6vw, 42px);
+  --fs-h2: clamp(22px, 4.5vw, 32px);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-size:var(--fs-body); line-height:var(--lh); -webkit-text-size-adjust:100%}
+.container{width:100%; max-width:var(--maxw); margin:0 auto; padding:0 var(--pad)}
+main,.section,.block{width:100%}
+p{margin:0 0 1rem}
+img,video{max-width:100%; height:auto; display:block}
+
+/* ====== Top nav ====== */
+nav{position:sticky; top:0; background:#fff; z-index:10; border-bottom:1px solid #eee}
+nav .container{padding:0 var(--pad)}
+nav .tabs{display:flex; gap:12px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding:8px 0}
+nav .tabs a{white-space:nowrap; text-decoration:none; padding:6px 10px; border-radius:12px; border:1px solid #ddd; font-size:15px}
+nav .tabs::-webkit-scrollbar{display:none}
+
+/* ====== Видео-блоки ====== */
+.video-wrap{position:relative; width:100%; aspect-ratio:16/9; background:#000}
+.video-wrap video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+
+/* ====== Текстовые блоки ====== */
+.section{padding:20px 0}
+.section .content{margin:0 auto; max-width: 70ch; padding: 0 var(--pad)}
+.section h1{font-size:var(--fs-h1); line-height:1.2; margin:12px 0}
+.section h2{font-size:var(--fs-h2); line-height:1.25; margin:16px 0 8px}
+
+/* ====== Фото профиля ====== */
+.profile-photo{max-width:220px; border-radius:12px; overflow:hidden; margin:12px 0}
+@media (min-width: 640px){
+  .profile-photo{max-width:280px}
+}
+
+/* ====== Временное скрытие кнопок ====== */
+.actions{display:flex; flex-wrap:wrap; gap:10px}
+a[data-temp-hide="1"]{display:none !important}
+
+/* ====== Desktop ====== */
+@media (min-width: 980px){
+  :root{--fs-body:18px}
+  nav .tabs a{font-size:16px}
+}
+
+/* ====== Hero (баннер + имя + телефон + фото) ====== */
+.hero{position:relative}
+.hero-banner{
+  width:100%;
+  height: clamp(120px, 24vw, 220px);
+  background: linear-gradient(135deg,#0f172a, #1e293b 55%, #334155);
+}
+.hero-inner{
+  display:flex; gap:16px; align-items:flex-end; padding:12px 0; flex-wrap:wrap;
+}
+.hero-text{flex:1 1 280px}
+.hero-name{
+  font-size: clamp(28px, 7vw, 48px);
+  line-height:1.1; color:#0f172a; margin:12px 0 4px;
+}
+.hero-contact .tel{
+  font-size: clamp(16px, 4.5vw, 18px); text-decoration:none; color:#0f172a;
+  border-bottom:1px dashed rgba(15,23,42,.35);
+}
+.hero + nav{margin-top:0}
+
+/* ====== Печать: без картинок/видео и дыр ====== */
+@media print{
+  img, video, .video-wrap, .profile-photo, nav, .actions, .hero-banner { display:none !important; height:0 !important; padding:0 !important; margin:0 !important; border:0 !important; }
+  .container, .section, .content { width:100% !important; max-width:none !important; padding:0 !important; margin:0 0 12pt 0 !important; }
+  body{font-size:12pt; line-height:1.4}
+  h1{font-size:18pt; margin:0 0 8pt}
+  h2{font-size:14pt; margin:12pt 0 6pt}
+  a[href]:after{content:" (" attr(href) ")"; font-size:10pt}
+}
+nav{border-bottom:3px solid #22c55e !important}
+
+/* ==== Spacing & layering fixes for video and text ==== */
+.video-wrap{
+  margin: 12px 0 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 0;
+}
+@media (min-width: 768px){
+  .video-wrap{ margin: 16px 0 24px; }
+}
+
+/* Текстовые блоки всегда поверх, с белым фоном (на случай прозрачностей) */
+.section, .section .content{
+  position: relative;
+  z-index: 1;
+  background: #fff;
+}
+
+/* Навигация гарантированно поверх */
+nav{ z-index: 1000 !important; }
+
+/* Без лишнего зазора между баннером и меню */
+.hero + nav{ margin-top: 0; }
+
+/* ==== HARD OVERRIDES for video stacking/flow ==== */
+.video-wrap{
+  position: relative !important;
+  margin: 14px 0 22px !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+  clear: both !important;   /* если где-то есть float-ы */
+}
+
+/* Возвращаем <video> в нормальный поток документа */
+.video-wrap video{
+  position: static !important;
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  object-fit: contain !important; /* избегаем растяжки поверх текста */
+  transform: none !important;
+  top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
+}
+
+/* На случай, если другие контейнеры перекрывают видео */
+.section, .section .content, .block, main{
+  position: relative !important;
+  z-index: 2 !important;
+  background: #fff !important;
+}
+
+/* Любые медиа поверх фона, но под текстом */
+img, video{
+  z-index: 1 !important;
+}
+
+/* Убираем фикс/стик для видео, если где-то задавался */
+video[style*="position:fixed"], video[style*="position:sticky"]{
+  position: static !important;
+}
+
+/* Страховка от отрицательных внешних отступов из старых стилей */
+video, .video-wrap{
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* На планшетах/десктопах чуть больше воздуха */
+@media (min-width: 768px){
+  .video-wrap{ margin: 18px 0 26px !important; }
+}
+
+/* ==== ULTRA-OVERRIDE: видео всегда в нормальном потоке, с воздухом и без налезаний ==== */
+
+/* 1) Универсально для всех видео в документе */
+video{
+  position: static !important;
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+  transform: none !important;
+  top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
+  margin: 14px 0 22px !important;
+  clear: both !important;
+  z-index: 1 !important;
+}
+
+/* 2) Для наиболее вероятных контейнеров */
+.video-wrap, .block, .wrap, .section, .content, main{
+  position: relative !important;
+  z-index: 2 !important;
+  background: #fff !important;
+  overflow: visible !important;
+}
+
+/* 3) На случай, если где-то видео делали фиксированным/липким */
+video[style*="position:fixed"], video[style*="position:sticky"], 
+.video-wrap[style*="position:fixed"], .video-wrap[style*="position:sticky"]{
+  position: static !important;
+}
+
+/* 4) Убираем отрицательные отступы и трансформы у видео/контейнеров рядом с текстом */
+video, .video-wrap, .block video, .wrap video{
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  transform: none !important;
+}
+
+/* 5) Разделители (clearfix) до и после каждого видео, чтобы текст не поджимался */
+video::before, video::after{
+  content: "";
+  display: block !important;
+  clear: both !important;
+  height: 0 !important;
+  visibility: hidden !important;
+}
+
+/* 6) Немного воздуха у заголовков рядом с видео */
+.section h1, .section h2{
+  margin-top: 16px !important;
+}
+
+/* 7) На планшете/десктопе — чуть больше воздуха */
+@media (min-width: 768px){
+  video{ margin: 18px 0 26px !important; }
+}
+
+/* ==== ULTRA HARD OVERRIDES (beat inline + exotic selectors) ==== */
+
+/* Стек слоёв секций независим, текст всегда над фоном */
+.section, .section .content, main, .wrap, .block {
+  position: relative !important;
+  z-index: 2 !important;
+  background: #fff !important;
+  isolation: isolate !important;
+  transform: none !important;
+  top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
+}
+
+/* Контейнер видео — обычный блок, без липкости/абсолютов */
+.video-wrap, [class*="video"], [id*="video"] {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 16px 0 24px !important;
+  padding: 0 !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+  clear: both !important;
+  transform: none !important;
+  top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
+}
+
+/* Бьём inline-стили у <video>: position/size/transform/z-index */
+video, video[style], [class*="video"] video, [id*="video"] video {
+  position: static !important;
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+  transform: none !important;
+  top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
+  margin: 0 !important;
+  z-index: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* Если где-то делали sticky/fixed — снимаем */
+video[style*="position:fixed"], video[style*="position:sticky"],
+[class*="video"][style*="position:fixed"], [class*="video"][style*="position:sticky"] {
+  position: static !important;
+}
+
+/* На случай отрицательных отступов/смещений, задаём безопасные поля у текста */
+.section .content {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Нав всегда поверх всего, чтобы не дрожал */
+nav { z-index: 1000 !important; }
+
+/* Визуальный "маячок" оставляем до конца правок */
+
+/* ==== THEME FIX: возвращаем тёмную тему и читаемость ==== */
+body{
+  background:#0b1220 !important;         /* тёмный фон */
+  color:#e5e7eb !important;               /* светлый текст */
+}
+a{ color:#93c5fd; }
+h1,h2,h3,h4,h5,h6{ color:#f3f4f6 !important; }
+
+/* Снимаем ранее навязанный белый фон у секций/контента */
+.section, .section .content, main, .wrap, .block{
+  background: transparent !important;
+}
+
+/* Навигационная панель — слегка затемняем фон для контраста */
+nav{
+  background: rgba(15,23,42,0.85) !important;
+  backdrop-filter: saturate(120%) blur(6px);
+  -webkit-backdrop-filter: saturate(120%) blur(6px);
+  border-bottom: 1px solid rgba(148,163,184,0.25) !important;
+}
+
+/* Табы в навигации — светлее на тёмном фоне */
+nav .tabs a{
+  border-color: rgba(148,163,184,0.35) !important;
+  color:#e5e7eb !important;
+}
+
+/* ==== VIDEO GEOMETRY FIX: контейнер и видео совпадают ==== */
+/* 1) Контейнер делает aspect-ratio 16:9, режет края аккуратно */
+.video-wrap{
+  position: relative !important;
+  width: 100% !important;
+  aspect-ratio: 16/9 !important;
+  margin: 16px 0 24px !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  background:#000 !important;            /* чёрный фон под видео */
+  padding: 0 !important;                 /* без паддингов, чтобы не смещалось */
+}
+
+/* 2) Само видео заполняет контейнер без смещения */
+.video-wrap > video{
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: cover !important;          /* аккуратно заполняем без полос */
+  margin: 0 !important;
+  transform: none !important;
+  z-index: 1 !important;
+}
+
+/* 3) На случай, если где-то стоят inline-правила — бьём их повышенной специфичностью */
+.section .video-wrap > video,
+.wrap .video-wrap > video,
+.block .video-wrap > video{
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+/* 4) Текстовые блоки — над фоном, но не перекрывают видео в своём контейнере */
+.section, .section .content, main{ z-index: 2 !important; position: relative !important; }
+
+/* 5) Немного больше воздуха на планшетах/десктопах */
+@media (min-width: 768px){
+  .video-wrap{ margin: 20px 0 28px !important; }
+}
+
+/* --- NAV/TABS CLEANUP --- */
+/* Контейнер вкладок — аккуратная строка, без хаоса */
+nav .tabs{
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  padding: 10px var(--pad) !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  scroll-snap-type: x mandatory !important;
+}
+
+/* Сами пункты меню: без рамок/контуров/теней, ровная типографика */
+nav .tabs a{
+  flex: 0 0 auto !important;      /* фиксированная ширина по контенту на мобиле */
+  scroll-snap-align: start !important;
+  white-space: nowrap !important;
+  text-decoration: none !important;
+  font-size: 15px !important;
+  line-height: 1.2 !important;
+  font-weight: 500 !important;
+  color: #e5e7eb !important;       /* светлый текст на тёмном фоне */
+  padding: 8px 10px !important;
+
+  /* УБИРАЕМ «контур»: */
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+
+/* Ховер/актив — только нижний индикатор */
+nav .tabs a:hover,
+nav .tabs a:focus{
+  text-decoration: underline !important;
+  text-underline-offset: 3px !important;
+}
+nav .tabs a.active{
+  border-bottom: 2px solid #60a5fa !important; /* мягкий индикатор активного */
+}
+
+/* Десктоп: ровное центрирование и «равномерность» расположения */
+@media (min-width: 980px){
+  nav .tabs{
+    justify-content: center !important;
+    gap: 18px !important;
+  }
+  nav .tabs a{
+    font-size: 16px !important;
+    padding: 10px 12px !important;
+  }
+}
+
+/* Снимаем наш ранний зелёный «маячок» и ставим аккуратную линию */
+nav{
+  border-bottom: 1px solid rgba(148,163,184,0.25) !important;
+}
+/* === NAV ABOVE HERO & CLICKABLE === */
+nav{
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 9999 !important;
+  pointer-events: auto !important;
+  border-bottom: 1px solid rgba(148,163,184,0.25) !important; /* тонкая линия */
+}
+.hero{
+  position: relative !important;
+  z-index: 0 !important;            /* герой ниже меню */
+}
+.hero-banner{
+  position: relative !important;
+  z-index: 0 !important;
+  pointer-events: none !important;   /* баннер не перехватывает клики по меню */
+}
+.hero-inner{
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Чистим оформление пунктов меню: без рамок/фонов */
+nav .tabs a{
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  color: #e5e7eb !important;
+  white-space: nowrap !important;
+  text-decoration: none !important;
+  padding: 8px 10px !important;
+  font-weight: 500 !important;
+}
+nav .tabs{
+  display:flex !important; gap:14px !important; align-items:center !important;
+  overflow-x:auto !important; -webkit-overflow-scrolling:touch !important;
+  padding:10px var(--pad) !important;
+}
+@media (min-width: 980px){
+  nav .tabs{ justify-content:center !important; gap:18px !important; }
+  nav .tabs a{ font-size:16px !important; padding:10px 12px !important; }
+}
+/* ==== NAV ALWAYS ON TOP, CLICKABLE ==== */
+nav{
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 99999 !important;
+  pointer-events: auto !important;
+  background: rgba(15,23,42,0.9) !important;
+  border-bottom: 1px solid rgba(148,163,184,0.25) !important;
+}
+
+/* Герой ниже, баннер не ловит клики и не наезжает */
+.hero{ position: relative !important; z-index: 0 !important; }
+.hero-banner{ pointer-events: none !important; position: relative !important; z-index: 0 !important; }
+.hero-inner{ position: relative !important; z-index: 1 !important; }
+
+/* ==== MENU ITEMS: убрать рамки/контуры/фоны при любом селекторе ==== */
+nav a,
+nav .tabs a,
+nav .container a,
+nav li a,
+nav .menu a,
+nav .nav a{
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  color: #e5e7eb !important;
+  white-space: nowrap !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  padding: 8px 10px !important;
+}
+
+/* Ровная раскладка пунктов меню */
+nav .tabs, nav .menu, nav .container{
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  padding: 10px var(--pad) !important;
+}
+@media (min-width: 980px){
+  nav .tabs, nav .menu, nav .container{
+    justify-content: center !important;
+    gap: 18px !important;
+  }
+  nav a{ font-size: 16px !important; padding: 10px 12px !important; }
+}
+
+/* Нижний индикатор для активного */
+nav a.active{ border-bottom: 2px solid #60a5fa !important; }
+
+/* Если где-то на a навесили border через id/class — гасим это тоже */
+nav a[class*="btn"], nav a[id*="btn"], nav a[class*="tag"], nav a[id*="tag"]{
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Доп. защита от перекрытия меню контентом ниже */
+main, .section, .wrap, .block{
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Небольшая подстраховка: отступ сверху у контента, если вдруг меню наползает */
+body{ scroll-padding-top: 64px !important; }
+/* === NAV CLICK FIX — жесткий оверрайд слоя и событий === */
+nav{
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 2147483647 !important; /* максимальный разумный */
+  pointer-events: auto !important;
+}
+nav *, nav a, nav .tabs a, nav li a{
+  pointer-events: auto !important;
+  position: relative; /* на всякий случай для локального стэкинга */
+}
+
+/* Любые потенциальные перекрыватели — обезвреживаем */
+.hero, .hero *, .hero::before, .hero::after,
+header, header::before, header::after,
+.banner, .banner::before, .banner::after{
+  pointer-events: none !important;  /* ничего из шапки не ловит клики */
+}
+.hero .hero-inner, .hero .hero-text{
+  pointer-events: auto !important;  /* но свой контент кликабелен, если там есть ссылки */
+}
+
+/* Псевдоэлементы, которые могут висеть над nav */
+*::before, *::after{
+  /* не выключаем глобально, только если они реально перекрывают */
+}
+.hero::before, .hero::after, .hero-banner::before, .hero-banner::after{
+  content: none !important;
+  pointer-events: none !important;
+}
+
+/* На случай полноэкранных оверлеев из старого CSS */
+.overlay, .backdrop, .mask, .glass, .shade{
+  pointer-events: none !important;
+}
+
+/* Адаптив: убедимся, что на мобиле меню — поверх всего */
+@media (max-width: 979px){
+  nav{ position: sticky !important; top: 0 !important; z-index: 2147483647 !important; }
+}
+
+/* Подстраховка: контент ниже не может накрыть меню */
+main, .section, .wrap, .block{
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Убираем любые декоративные рамки/фоны у пунктов меню */
+nav a, nav .tabs a, nav li a{
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  color: #e5e7eb !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  padding: 8px 10px !important;
+}
+
+/* Ровная укладка пунктов */
+nav .tabs, nav .menu, nav .container{
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+@media (min-width: 980px){
+  nav .tabs, nav .menu, nav .container{ justify-content: center !important; gap: 18px !important; }
+}
+/* ==== FIXED NAV ON TOP (desktop + mobile), NO OVERLAYS ==== */
+nav{
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 2147483647 !important; /* сверх всего */
+  pointer-events: auto !important;
+  background: rgba(15,23,42,0.95) !important;
+  border-bottom: 1px solid rgba(148,163,184,0.25) !important;
+}
+
+/* контент отступает вниз на высоту хедера */
+body{
+  padding-top: 58px !important; /* высота хедера ~58px; можно отрегулировать */
+}
+
+/* на очень узких экранах шапка выше */
+@media (max-width: 420px){
+  body{ padding-top: 66px !important; }
+}
+
+/* гарантируем, что контейнер в nav не сужает ширину */
+nav .container{
+  max-width: none !important;
+  width: 100% !important;
+  padding: 8px var(--pad) !important;
+}
+
+/* лента пунктов меню — нормальный скролл на мобиле */
+nav .tabs, nav .menu{
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: 16px !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  scrollbar-width: none; /* firefox */
+}
+nav .tabs::-webkit-scrollbar{ display: none; }
+
+/* пункты меню — без рамок/фонов, кликабельны */
+nav a, nav .tabs a, nav li a{
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+  text-decoration: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  color: #e5e7eb !important;
+  padding: 8px 10px !important;
+  font-weight: 500 !important;
+  pointer-events: auto !important;
+}
+
+/* центрируем на десктопе; на мобиле — скролл */
+@media (min-width: 980px){
+  nav .tabs{ justify-content: center !important; gap: 20px !important; }
+  nav a{ font-size: 16px !important; padding: 10px 12px !important; }
+}
+
+/* выключаем перехват кликов и любые наложения от героев/баннеров */
+.hero, .hero *, .hero::before, .hero::after,
+.hero-banner, .hero-banner::before, .hero-banner::after{
+  pointer-events: none !important;
+}
+.hero .hero-inner, .hero .hero-text{
+  pointer-events: auto !important; /* внутри шапки свои ссылки, если есть */
+}
+.hero, .hero-banner{ z-index: 0 !important; }
+
+/* контент ниже не может перекрыть фикс-хедер */
+main, .section, .wrap, .block{
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* чтобы пункты меню помещались на мобиле — уменьшим межбуквенное и паддинги */
+@media (max-width: 360px){
+  nav a{ padding: 8px 8px !important; letter-spacing: 0 !important; }
+}
+
+/* === TOPNAV: фикс сверху, кликабельно, без рамок === */
+#topnav{
+  position: fixed !important;
+  top: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important;
+  z-index: 2147483647 !important;
+  background: rgba(15,23,42,0.95) !important;
+  border-bottom: 1px solid rgba(148,163,184,0.25) !important;
+  pointer-events: auto !important;
+}
+#topnav .container{ max-width: none !important; width: 100% !important; padding: 8px var(--pad) !important; }
+#topnav .tabs{
+  display:flex !important; align-items:center !important; gap:16px !important;
+  overflow-x:auto !important; -webkit-overflow-scrolling:touch !important;
+}
+#topnav .tabs::-webkit-scrollbar{ display:none }
+
+/* Пункты меню — без рамок/фонов, кликабельны */
+#topnav a{
+  flex: 0 0 auto !important;
+  color:#e5e7eb !important; text-decoration:none !important;
+  background:transparent !important; border:none !important; box-shadow:none !important; outline:none !important;
+  padding:8px 10px !important; font-weight:500 !important; white-space:nowrap !important;
+  pointer-events:auto !important;
+}
+@media (min-width:980px){
+  #topnav .tabs{ justify-content:center !important; gap:20px !important; }
+  #topnav a{ font-size:16px !important; padding:10px 12px !important; }
+}
+
+/* Контент отодвигаем вниз, чтобы не прятался под фикс-хедер */
+body{ padding-top: 60px !important; }
+@media (max-width: 420px){ body{ padding-top: 68px !important; } }
+
+/* НИЧТО НЕ ДОЛЖНО ПЕРЕКРЫВАТЬ МЕНЮ */
+.hero, .hero *, .hero::before, .hero::after,
+.hero-banner, .hero-banner::before, .hero-banner::after{
+  pointer-events: none !important;
+}
+.hero .hero-inner, .hero .hero-text{ pointer-events:auto !important; }
+.hero, .hero-banner{ z-index: 0 !important; }
+main, .section, .wrap, .block{ position:relative !important; z-index:1 !important; }
+/* === Секции: порядок Ж->Текст->Видео, без трогания HTML === */
+.section{
+  display: flex !important;
+  flex-direction: column !important;
+}
+.section h1, .section h2{ order: 1 !important; }
+.section .content{ order: 2 !important; }
+.section .video-wrap{ order: 3 !important; }
+
+/* Чуть больше воздуха между текстом и видео */
+.section .content{ margin-bottom: 8px !important; }
+.section .video-wrap{ margin-top: 10px !important; }
+
+/* === Мобильная читаемость === */
+@media (max-width: 480px){
+  :root{
+    --fs-body: 18px;                /* крупнее базовый текст */
+    --fs-h1: clamp(30px, 7.5vw, 44px);
+    --fs-h2: clamp(22px, 5.2vw, 34px);
+  }
+  .section .content{ line-height: 1.7 !important; }
+}
+
+/* === Якоря: чтобы при клике заголовок не уезжал под фикс-меню === */
+.section [id], .section h1, .section h2{
+  scroll-margin-top: 84px !important;   /* подстраховка под фиксированный topnav */
+}
+@media (max-width: 420px){
+  .section [id], .section h1, .section h2{ scroll-margin-top: 92px !important; }
+}
+
+/* === Меню на мобиле: лента во всю ширину, не «узкая» полоса === */
+#topnav .container{
+  max-width: none !important;
+  width: 100% !important;
+  padding: 10px var(--pad) !important;
+}
+#topnav .tabs{
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+#topnav .tabs::-webkit-scrollbar{ display: none; }
+#topnav a{
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+  padding: 8px 10px !important;
+  font-size: 15px !important;
+}
+
+/* === (опционально) вернуть фон баннера, если hero есть в разметке === */
+.hero-banner{
+  width:100% !important;
+  height: clamp(120px, 24vw, 220px) !important;
+  background: linear-gradient(135deg,#0f172a, #1e293b 55%, #334155) !important;
+}
+/* === SECTION ORDER: H(1/2) -> TEXT -> VIDEO === */
+.section{
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* 1) Любые заголовки секции идут первыми */
+.section :is(h1,h2){
+  order: 1 !important;
+}
+
+/* 2) Видео-блок всегда последним */
+.section .video-wrap{
+  order: 3 !important;
+}
+
+/* 3) Всё остальное (абзацы, списки, .content, .wrap, .block и т.п.) — вторыми */
+.section > :not(.video-wrap):not(:is(h1,h2)),
+.section .content,
+.section .wrap,
+.section .block,
+.section p,
+.section ul,
+.section ol{
+  order: 2 !important;
+}
+
+/* Чуточку воздуха между текстом и видео */
+.section .content{ margin-bottom: 8px !important; }
+.section .video-wrap{ margin-top: 10px !important; }
+
+/* === ANCHOR OFFSET (учёт фикс-меню #topnav) === */
+:root{ --topnav-h: 60px; }              /* дефолтная высота, JS обновит фактическую */
+html{ scroll-behavior: smooth; }
+
+/* Все потенциальные цели якорей получают запас сверху */
+.section[id],
+.section [id],
+h1[id], h2[id], h3[id]{
+  scroll-margin-top: calc(var(--topnav-h) + 12px) !important;
+}
+
+/* На очень узких экранах шапка выше */
+@media (max-width: 420px){
+  :root{ --topnav-h: 68px; }
+}
+/* ===== Mobile: no horizontal scroll, multi-row grid-style ===== */
+@media (max-width: 480px){
+  #topnav .tabs{
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    row-gap: 8px !important;
+    column-gap: 10px !important;
+    overflow-x: visible !important;   /* отключаем горизонтальный скролл */
+    padding: 10px var(--pad) !important;
+  }
+  #topnav a{
+    flex: 1 1 calc(33.33% - 10px) !important;  /* 3 колонки */
+    min-width: 0 !important;
+    text-align: center !important;
+    padding: 8px 6px !important;
+    font-size: 14px !important;
+    line-height: 1.15 !important;
+  }
+}
+
+/* Очень узкие экраны — 2 колонки, ещё компактнее */
+@media (max-width: 360px){
+  #topnav a{
+    flex-basis: calc(50% - 10px) !important;   /* 2 колонки */
+    font-size: 13px !important;
+    padding: 8px 5px !important;
+  }
+}
+
+/* ===== (Опционально) Иконки к пунктам меню на мобиле (без правки HTML) ===== */
+/* Если порядок ссылок стабилен — зададим эмодзи-иконки по порядку. Можно поменять по вкусу. */
+@media (max-width: 480px){
+  #topnav a::before{
+    display:block; font-size:18px; line-height:1; margin-bottom:4px; opacity:.95;
+    /* цвет наследуется; при желании можно осветлить: filter: contrast(1.1) */
+  }
+  #topnav .tabs a:nth-child(1)::before{ content:"🧭"; }   /* Summary */
+  #topnav .tabs a:nth-child(2)::before{ content:"🧠"; }   /* Компетенции */
+  #topnav .tabs a:nth-child(3)::before{ content:"📂"; }   /* Проекты / Портфолио */
+  #topnav .tabs a:nth-child(4)::before{ content:"💼"; }   /* Опыт / Резюме */
+  #topnav .tabs a:nth-child(5)::before{ content:"🧾"; }   /* Публикации / Статьи */
+  #topnav .tabs a:nth-child(6)::before{ content:"📞"; }   /* Контакты */
+}
+/* ===== Mobile: no horizontal scroll, multi-row grid-style ===== */
+@media (max-width: 480px){
+  #topnav .tabs{
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    row-gap: 8px !important;
+    column-gap: 10px !important;
+    overflow-x: visible !important;   /* отключаем горизонтальный скролл */
+    padding: 10px var(--pad) !important;
+  }
+  #topnav a{
+    flex: 1 1 calc(33.33% - 10px) !important;  /* 3 колонки */
+    min-width: 0 !important;
+    text-align: center !important;
+    padding: 8px 6px !important;
+    font-size: 14px !important;
+    line-height: 1.15 !important;
+  }
+}
+
+/* Очень узкие экраны — 2 колонки, ещё компактнее */
+@media (max-width: 360px){
+  #topnav a{
+    flex-basis: calc(50% - 10px) !important;   /* 2 колонки */
+    font-size: 13px !important;
+    padding: 8px 5px !important;
+  }
+}
+
+/* ===== (Опционально) Иконки к пунктам меню на мобиле (без правки HTML) ===== */
+/* Если порядок ссылок стабилен — зададим эмодзи-иконки по порядку. Можно поменять по вкусу. */
+@media (max-width: 480px){
+  #topnav a::before{
+    display:block; font-size:18px; line-height:1; margin-bottom:4px; opacity:.95;
+    /* цвет наследуется; при желании можно осветлить: filter: contrast(1.1) */
+  }
+  #topnav .tabs a:nth-child(1)::before{ content:"🧭"; }   /* Summary */
+  #topnav .tabs a:nth-child(2)::before{ content:"🧠"; }   /* Компетенции */
+  #topnav .tabs a:nth-child(3)::before{ content:"📂"; }   /* Проекты / Портфолио */
+  #topnav .tabs a:nth-child(4)::before{ content:"💼"; }   /* Опыт / Резюме */
+  #topnav .tabs a:nth-child(5)::before{ content:"🧾"; }   /* Публикации / Статьи */
+  #topnav .tabs a:nth-child(6)::before{ content:"📞"; }   /* Контакты */
+}
+/* ===== Mobile: no horizontal scroll, multi-row grid-style ===== */
+@media (max-width: 480px){
+  #topnav .tabs{
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    row-gap: 8px !important;
+    column-gap: 10px !important;
+    overflow-x: visible !important;   /* отключаем горизонтальный скролл */
+    padding: 10px var(--pad) !important;
+  }
+  #topnav a{
+    flex: 1 1 calc(33.33% - 10px) !important;  /* 3 колонки */
+    min-width: 0 !important;
+    text-align: center !important;
+    padding: 8px 6px !important;
+    font-size: 14px !important;
+    line-height: 1.15 !important;
+  }
+}
+
+/* Очень узкие экраны — 2 колонки, ещё компактнее */
+@media (max-width: 360px){
+  #topnav a{
+    flex-basis: calc(50% - 10px) !important;   /* 2 колонки */
+    font-size: 13px !important;
+    padding: 8px 5px !important;
+  }
+}
+
+/* ===== (Опционально) Иконки к пунктам меню на мобиле (без правки HTML) ===== */
+/* Если порядок ссылок стабилен — зададим эмодзи-иконки по порядку. Можно поменять по вкусу. */
+@media (max-width: 480px){
+  #topnav a::before{
+    display:block; font-size:18px; line-height:1; margin-bottom:4px; opacity:.95;
+    /* цвет наследуется; при желании можно осветлить: filter: contrast(1.1) */
+  }
+  #topnav .tabs a:nth-child(1)::before{ content:"🧭"; }   /* Summary */
+  #topnav .tabs a:nth-child(2)::before{ content:"🧠"; }   /* Компетенции */
+  #topnav .tabs a:nth-child(3)::before{ content:"📂"; }   /* Проекты / Портфолио */
+  #topnav .tabs a:nth-child(4)::before{ content:"💼"; }   /* Опыт / Резюме */
+  #topnav .tabs a:nth-child(5)::before{ content:"🧾"; }   /* Публикации / Статьи */
+  #topnav .tabs a:nth-child(6)::before{ content:"📞"; }   /* Контакты */
+}
+/* === MOBILE: ONLY ICONS IN NAV, COMPACT HERO === */
+@media (max-width: 480px){
+  /* Меню — сетка из 3–4 иконок в ряд, без горизонтального скролла */
+  #topnav .tabs{
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important; /* 4 колонки на обычных телефонах */
+    gap: 10px !important;
+    overflow: visible !important;
+    padding: 8px var(--pad) !important;
+    justify-items: center !important;
+    align-items: center !important;
+  }
+  /* Очень узкие телефоны: по 3 в ряд */
+  @media (max-width: 360px){
+    #topnav .tabs{ grid-template-columns: repeat(3, 1fr) !important; }
+  }
+
+  /* Ссылки-пункты: текст скрыт, кликабельная зона квадратная */
+  #topnav a{
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 48px !important;
+    height: 48px !important;
+    padding: 0 !important;
+    border-radius: 12px !important;
+    background: rgba(255,255,255,0.06) !important;
+    font-size: 0 !important;            /* прячем текст */
+  }
+  #topnav a:active{ transform: scale(0.98); }
+
+  /* Иконки в ::before — только они видны */
+  #topnav a::before{
+    display: block; font-size: 22px; line-height: 1;
+    color: #e5e7eb; opacity: .95; content: "•";
+  }
+  /* Привязка иконок по порядку ссылок (подстрой при необходимости) */
+  #topnav .tabs a:nth-child(1)::before{ content:"🧭"; }  /* Summary */
+  #topnav .tabs a:nth-child(2)::before{ content:"🧠"; }  /* Компетенции */
+  #topnav .tabs a:nth-child(3)::before{ content:"📂"; }  /* Проекты/Портфолио */
+  #topnav .tabs a:nth-child(4)::before{ content:"💼"; }  /* Опыт/Резюме */
+  #topnav .tabs a:nth-child(5)::before{ content:"🧾"; }  /* Публикации/Статьи */
+  #topnav .tabs a:nth-child(6)::before{ content:"📞"; }  /* Контакты */
+
+  /* Шапка (hero) — компактнее на мобиле */
+  .hero-banner{ height: 120px !important; }
+  .hero-name{ font-size: 22px !important; margin: 6px 0 2px !important; }
+  .hero-contact .tel{ font-size: 14px !important; }
+  .hero-inner{ gap: 10px !important; padding: 8px 0 !important; }
+
+  /* Если всё равно слишком высоко — можно скрыть телефон на очень узких экранах */
+  @media (max-width: 360px){
+    .hero-contact{ display: none !important; }
+  }
+}
+/* === MOBILE: ONLY ICONS IN NAV, COMPACT HERO === */
+@media (max-width: 480px){
+  /* Меню — сетка из 3–4 иконок в ряд, без горизонтального скролла */
+  #topnav .tabs{
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important; /* 4 колонки на обычных телефонах */
+    gap: 10px !important;
+    overflow: visible !important;
+    padding: 8px var(--pad) !important;
+    justify-items: center !important;
+    align-items: center !important;
+  }
+  /* Очень узкие телефоны: по 3 в ряд */
+  @media (max-width: 360px){
+    #topnav .tabs{ grid-template-columns: repeat(3, 1fr) !important; }
+  }
+
+  /* Ссылки-пункты: текст скрыт, кликабельная зона квадратная */
+  #topnav a{
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 48px !important;
+    height: 48px !important;
+    padding: 0 !important;
+    border-radius: 12px !important;
+    background: rgba(255,255,255,0.06) !important;
+    font-size: 0 !important;            /* прячем текст */
+  }
+  #topnav a:active{ transform: scale(0.98); }
+
+  /* Иконки в ::before — только они видны */
+  #topnav a::before{
+    display: block; font-size: 22px; line-height: 1;
+    color: #e5e7eb; opacity: .95; content: "•";
+  }
+  /* Привязка иконок по порядку ссылок (подстрой при необходимости) */
+  #topnav .tabs a:nth-child(1)::before{ content:"🧭"; }  /* Summary */
+  #topnav .tabs a:nth-child(2)::before{ content:"🧠"; }  /* Компетенции */
+  #topnav .tabs a:nth-child(3)::before{ content:"📂"; }  /* Проекты/Портфолио */
+  #topnav .tabs a:nth-child(4)::before{ content:"💼"; }  /* Опыт/Резюме */
+  #topnav .tabs a:nth-child(5)::before{ content:"🧾"; }  /* Публикации/Статьи */
+  #topnav .tabs a:nth-child(6)::before{ content:"📞"; }  /* Контакты */
+
+  /* Шапка (hero) — компактнее на мобиле */
+  .hero-banner{ height: 120px !important; }
+  .hero-name{ font-size: 22px !important; margin: 6px 0 2px !important; }
+  .hero-contact .tel{ font-size: 14px !important; }
+  .hero-inner{ gap: 10px !important; padding: 8px 0 !important; }
+
+  /* Если всё равно слишком высоко — можно скрыть телефон на очень узких экранах */
+  @media (max-width: 360px){
+    .hero-contact{ display: none !important; }
+  }
+}
+/* ===== MOBILE ICONS-ONLY NAV (no nested @media, hard overrides) ===== */
+
+/* <= 600px: 4 колонки иконок, без горизонтального скролла */
+@media (max-width: 600px){
+  #topnav .tabs{
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0,1fr)) !important;
+    gap: 10px !important;
+    justify-items: center !important;
+    align-items: center !important;
+    overflow-x: visible !important;
+    padding: 8px var(--pad) !important;
+  }
+  /* Ссылки — квадратные плитки с ИКОНКОЙ в ::before, текст скрыт */
+  #topnav a{
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 48px !important;
+    height: 48px !important;
+    padding: 0 !important;
+    border-radius: 12px !important;
+    background: rgba(255,255,255,0.06) !important;
+    color: #e5e7eb !important;
+    font-size: 0 !important;      /* прячем текст */
+    line-height: 0 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+  }
+  #topnav a::before{
+    content: "•";
+    display: block !important;
+    font-size: 22px !important;
+    line-height: 1 !important;
+    color: #e5e7eb !important;
+  }
+  /* Привязка иконок по порядку ссылок (подгони при необходимости) */
+  #topnav .tabs a:nth-child(1)::before{ content:"🧭" !important; } /* Summary */
+  #topnav .tabs a:nth-child(2)::before{ content:"🧠" !important; } /* Компетенции */
+  #topnav .tabs a:nth-child(3)::before{ content:"📂" !important; } /* Проекты */
+  #topnav .tabs a:nth-child(4)::before{ content:"💼" !important; } /* Опыт */
+  #topnav .tabs a:nth-child(5)::before{ content:"🧾" !important; } /* Публикации */
+  #topnav .tabs a:nth-child(6)::before{ content:"📞" !important; } /* Контакты */
+
+  /* Снимаем любые старые флексы и скролл на мобиле */
+  #topnav .tabs::-webkit-scrollbar{ display:none !important; }
+  #topnav .tabs, #topnav .menu{ overflow-x: visible !important; }
+
+  /* Шапка (hero) — компактнее на мобиле */
+  .hero-banner{ height: 120px !important; }
+  .hero-name{ font-size: 22px !important; margin: 6px 0 2px !important; }
+  .hero-contact .tel{ font-size: 14px !important; }
+  .hero-inner{ gap: 10px !important; padding: 8px 0 !important; }
+}
+
+/* <= 360px: 3 колонки иконок, ещё компактнее */
+@media (max-width: 360px){
+  #topnav .tabs{
+    grid-template-columns: repeat(3, minmax(0,1fr)) !important;
+  }
+  #topnav a{
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 10px !important;
+  }
+  .hero-contact{ display:none !important; }
+}
+/* ===== MOBILE HARD FIX (<= 600px) ===== */
+@media (max-width: 600px){
+  /* 1) Прячем hero, чтобы не раздувал высоту и не конфликтовал по слоям */
+  .hero, .hero *{ display: none !important; }
+  body{ padding-top: 56px !important; } /* под фиксированное меню */
+
+  /* 2) #topnav всегда во всю ширину, поверх всего, кликабельно */
+  #topnav{
+    position: fixed !important;
+    top: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important;
+    z-index: 2147483647 !important;
+    background: rgba(15,23,42,0.98) !important;
+    border-bottom: 1px solid rgba(148,163,184,0.25) !important;
+    pointer-events: auto !important;
+  }
+  #topnav .container{
+    max-width: none !important;
+    width: 100% !important;
+    padding: 8px var(--pad) !important;
+  }
+
+  /* 3) Сетка иконок БЕЗ текста — без горизонтального скролла */
+  #topnav .tabs{
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0,1fr)) !important; /* 4 в ряд */
+    gap: 10px !important;
+    justify-items: center !important;
+    align-items: center !important;
+    overflow: visible !important;
+    padding: 4px 0 !important;
+  }
+  /* очень узкие экраны — 3 в ряд */
+  @media (max-width: 360px){
+    #topnav .tabs{ grid-template-columns: repeat(3, minmax(0,1fr)) !important; }
+  }
+
+  /* 4) Плитки-иконки: текст прячем, клик — по квадрату 44–48px */
+  #topnav a{
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 48px !important; height: 48px !important;
+    padding: 0 !important; border-radius: 12px !important;
+    background: rgba(255,255,255,0.06) !important;
+    font-size: 0 !important; line-height: 0 !important; white-space: nowrap !important;
+    border: none !important; box-shadow: none !important; outline: none !important;
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
+  }
+  #topnav a:active{ transform: scale(0.98); }
+
+  /* 5) Иконки через ::before (подгони порядок при необходимости) */
+  #topnav a::before{
+    content: "•"; display: block !important; font-size: 22px !important; line-height: 1 !important; color: #e5e7eb !important;
+  }
+  #topnav .tabs a:nth-child(1)::before{ content:"🧭" !important; } /* Summary */
+  #topnav .tabs a:nth-child(2)::before{ content:"🧠" !important; } /* Компетенции */
+  #topnav .tabs a:nth-child(3)::before{ content:"📂" !important; } /* Проекты */
+  #topnav .tabs a:nth-child(4)::before{ content:"💼" !important; } /* Опыт */
+  #topnav .tabs a:nth-child(5)::before{ content:"🧾" !important; } /* Публикации */
+  #topnav .tabs a:nth-child(6)::before{ content:"📞" !important; } /* Контакты */
+
+  /* 6) На мобиле отключаем любые горизонтальные скроллы у меню */
+  #topnav .tabs::-webkit-scrollbar{ display:none !important; }
+  #topnav .tabs, #topnav .menu{ overflow-x: visible !important; }
+}
+/* ===== MOBILE BOTTOM NAV: icons only, full width, no scroll ===== */
+@media (max-width: 600px){
+  /* 0) Прячем громоздкий hero на телефонах */
+  .hero, .hero *{ display:none !important; }
+  /* Под фиксированную нижнюю панель даём отступ снизу, сверху оставляем наш top-padding под десктоп */
+  body{ padding-bottom: 68px !important; }
+
+  /* 1) Навбар фиксируем внизу экрана (поднимаем его над всем) */
+  #topnav, nav{
+    position: fixed !important;
+    bottom: 0 !important;
+    top: auto !important;
+    left: 0 !important; right: 0 !important;
+    width: 100% !important;
+    z-index: 2147483647 !important;
+    background: rgba(15,23,42,0.98) !important;
+    border-top: 1px solid rgba(148,163,184,0.25) !important;
+    border-bottom: none !important;
+    pointer-events: auto !important;
+  }
+  /* 2) Контейнер — во всю ширину, без ограничений */
+  #topnav .container, nav .container{
+    max-width: none !important;
+    width: 100% !important;
+    padding: 8px var(--pad) !important;
+  }
+  /* 3) Ровная раскладка: 5–6 иконок в ряд, без горизонтального скролла */
+  #topnav .tabs, nav .tabs, #topnav .menu, nav .menu{
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    gap: 0 !important;
+    overflow: visible !important;     /* никаких полос прокрутки */
+    padding: 0 !important;
+  }
+  /* 4) Кнопки — только иконка; текст скрыт; зона клика 48–56px */
+  #topnav a, nav a{
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 56px !important;
+    height: 56px !important;
+    padding: 0 !important;
+    border-radius: 12px !important;
+    background: rgba(255,255,255,0.06) !important;
+    color: #e5e7eb !important;
+    font-size: 0 !important; line-height: 0 !important; white-space: nowrap !important;
+    border: none !important; box-shadow: none !important; outline: none !important;
+    pointer-events: auto !important; touch-action: manipulation !important;
+  }
+  #topnav a:active, nav a:active{ transform: scale(0.98); }
+
+  /* 5) Иконки через ::before (по порядку ссылок; подгони при необходимости) */
+  #topnav a::before, nav .tabs a::before{
+    content: "•";
+    display: block !important;
+    font-size: 22px !important;
+    line-height: 1 !important;
+    color: #e5e7eb !important;
+  }
+  #topnav .tabs a:nth-child(1)::before, nav .tabs a:nth-child(1)::before{ content:"🧭" !important; } /* Summary */
+  #topnav .tabs a:nth-child(2)::before, nav .tabs a:nth-child(2)::before{ content:"🧠" !important; } /* Компетенции */
+  #topnav .tabs a:nth-child(3)::before, nav .tabs a:nth-child(3)::before{ content:"📂" !important; } /* Проекты */
+  #topnav .tabs a:nth-child(4)::before, nav .tabs a:nth-child(4)::before{ content:"💼" !important; } /* Опыт */
+  #topnav .tabs a:nth-child(5)::before, nav .tabs a:nth-child(5)::before{ content:"🧾" !important; } /* Публикации */
+  #topnav .tabs a:nth-child(6)::before, nav .tabs a:nth-child(6)::before{ content:"📞" !important; } /* Контакты */
+}
+
+/* === MOBILE NAV FINAL FIX (v2025-10-09) === */
+@media (max-width: 600px) {
+  /* Убираем шапку и баннер */
+  #hero, .hero, header.hero, .hero-banner, .hero-inner, .hero-text {
+    display: none !important;
+  }
+
+  /* Нижняя навигация: фиксирована, 6 иконок в ряд */
+  #topnav {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    z-index: 9999 !important;
+    background: rgba(15, 23, 42, 0.98) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  #topnav .container {
+    padding: 6px 8px !important;
+    max-width: none !important;
+    width: 100% !important;
+  }
+
+  #topnav .tabs {
+    display: grid !important;
+    grid-template-columns: repeat(6, 1fr) !important;
+    gap: 6px !important;
+    justify-items: center !important;
+    align-items: center !important;
+    overflow: visible !important;
+  }
+
+  #topnav a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: clamp(36px, 14vw, 48px) !important;
+    height: clamp(36px, 14vw, 48px) !important;
+    border-radius: 12px !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    font-size: 0 !important;
+    text-indent: -9999px !important;
+    color: #e5e7eb !important;
+  }
+
+  #topnav a::before {
+    content: attr(data-ico) !important;
+    font-size: 22px !important;
+    line-height: 1 !important;
+    color: #e5e7eb !important;
+    text-indent: 0 !important;
+  }
+
+  body {
+    padding-bottom: 72px !important;
+    margin: 0 !important;
+  }
+}
+/* === END MOBILE NAV FINAL FIX === */
+
+/* === MOBILE NAV BOTTOM vFinal (2025-10-09) === */
+@media (max-width: 600px){
+  /* Прячем верхний hero/баннер на телефонах */
+  #hero, .hero, header.hero, .hero-banner, .hero-inner, .hero-text { display:none !important; }
+
+  /* Запас под нижнюю панель */
+  body{ padding-bottom: 72px !important; margin:0 !important; overflow-x:hidden !important; }
+
+  /* Нижняя панель: фикс снизу */
+  #topnav{
+    position: fixed !important; bottom: 0 !important; top: auto !important; left: 0 !important; right: 0 !important;
+    width: 100% !important; z-index: 2147483647 !important;
+    background: rgba(15,23,42,0.98) !important; border-top: 1px solid rgba(148,163,184,0.2) !important;
+  }
+  #topnav .container{ max-width:none !important; width:100% !important; padding:6px 8px !important; margin:0 !important; }
+
+  /* Не зависим от конкретного класса: любой прямой контейнер превращаем в грид 6 колонок */
+  #topnav .tabs, #topnav .menu, #topnav nav, #topnav ul, #topnav > *, #topnav .container > *{
+    display:grid !important;
+    grid-template-columns: repeat(6, minmax(0,1fr)) !important;
+    gap:6px !important; justify-items:center !important; align-items:center !important;
+    padding:0 !important; margin:0 !important; border:0 !important; overflow:visible !important;
+  }
+
+  /* Любые <a> — плитки-иконки без текста */
+  #topnav a{
+    display:inline-flex !important; align-items:center !important; justify-content:center !important;
+    width: clamp(36px, 14.5vw, 48px) !important; height: clamp(36px, 14.5vw, 48px) !important;
+    background: rgba(255,255,255,0.08) !important; border-radius: 12px !important;
+    border:none !important; box-shadow:none !important; outline:none !important;
+    color:#e5e7eb !important; font-size:0 !important; line-height:0 !important; white-space:nowrap !important;
+    text-indent:-9999px !important; overflow:hidden !important;
+    touch-action: manipulation !important;
+  }
+
+  /* Иконка: сперва берем из data-ico; если нет — fallback по порядку ссылок */
+  #topnav a::before{
+    content: attr(data-ico, "❖") !important;
+    display:block !important; font-size:22px !important; line-height:1 !important; color:#e5e7eb !important;
+    text-indent:0 !important;
+  }
+  #topnav a:nth-of-type(1):not([data-ico])::before{ content:"🧭" !important; } /* Summary */
+  #topnav a:nth-of-type(2):not([data-ico])::before{ content:"🧠" !important; } /* Компетенции */
+  #topnav a:nth-of-type(3):not([data-ico])::before{ content:"💼" !important; } /* Карьера (см. порядок ссылок) */
+  #topnav a:nth-of-type(4):not([data-ico])::before{ content:"📂" !important; } /* Проекты */
+  #topnav a:nth-of-type(5):not([data-ico])::before{ content:"🧾" !important; } /* Публикации */
+  #topnav a:nth-of-type(6):not([data-ico])::before{ content:"📞" !important; } /* Контакты */
+}
+/* === /MOBILE NAV BOTTOM vFinal === */
+
+/* === MOBILE NAV HARD OVERRIDE (2025-10-09) === */
+@media (max-width: 600px){
+  /* 0) Базовые гарантии */
+  #topnav, #topnav *{ box-sizing: border-box !important; }
+  #topnav{ 
+    position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important;
+    width: 100% !important; z-index: 2147483647 !important;
+    background: rgba(15,23,42,0.98) !important; border-top: 1px solid rgba(148,163,184,0.2) !important;
+    overflow: visible !important; pointer-events: auto !important;
+  }
+  #topnav .container{ max-width: none !important; width:100% !important; padding: 8px 10px !important; margin:0 !important; overflow: visible !important; }
+
+  /* 1) Любой прямой контейнер внутри topnav превращаем в грид 6 колонок */
+  #topnav > *:not(style):not(script),
+  #topnav .container > *:not(style):not(script){
+    display: grid !important;
+    grid-template-columns: repeat(6, minmax(0,1fr)) !important;
+    gap: 8px !important;
+    justify-items: center !important;
+    align-items: center !important;
+    padding: 0 !important; margin: 0 !important; border: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* 2) Плитки — ровные, без текста, кликабельные */
+  #topnav a{
+    display: inline-flex !important;
+    align-items: center !important; justify-content: center !important;
+    width: 56px !important; height: 56px !important;
+    padding: 0 !important; margin: 0 !important;
+    border-radius: 12px !important; background: rgba(255,255,255,0.08) !important;
+    border: none !important; box-shadow: none !important; outline: none !important;
+    color:#e5e7eb !important; font-size: 0 !important; line-height: 0 !important; white-space: nowrap !important;
+    text-indent: -9999px !important; overflow: hidden !important;
+    pointer-events: auto !important; touch-action: manipulation !important;
+  }
+  /* вырубить любые вложенные spans/иконки, чтобы не мешали ::before */
+  #topnav a > *{ display: none !important; }
+
+  /* 3) Иконки — из data-ico, иначе fallback по порядку */
+  #topnav a::before{
+    content: attr(data-ico, "❖") !important;
+    display: block !important; font-size: 24px !important; line-height: 1 !important; color:#e5e7eb !important;
+    text-indent: 0 !important;
+  }
+  #topnav a:nth-of-type(1):not([data-ico])::before{ content:"🧭" !important; }
+  #topnav a:nth-of-type(2):not([data-ico])::before{ content:"🧠" !important; }
+  #topnav a:nth-of-type(3):not([data-ico])::before{ content:"📂" !important; }
+  #topnav a:nth-of-type(4):not([data-ico])::before{ content:"💼" !important; }
+  #topnav a:nth-of-type(5):not([data-ico])::before{ content:"🧾" !important; }
+  #topnav a:nth-of-type(6):not([data-ico])::before{ content:"📞" !important; }
+
+  /* 4) Запас под панель */
+  body{ padding-bottom: 88px !important; }
+}
+/* === /MOBILE NAV HARD OVERRIDE === */
+/* === MOBILE BOTTOM NAV • FINAL (lockdown) === */
+@media (max-width: 600px){
+  /* Скрываем верхний hero/баннер на телефонах */
+  #hero, .hero, header.hero, .hero-banner, .hero-inner, .hero-text { display:none !important; }
+
+  /* Запас под нижнюю панель + safe-area, защита от горизонтального скролла */
+  body{
+    padding-bottom: calc(env(safe-area-inset-bottom) + 72px) !important;
+    margin:0 !important; overflow-x:hidden !important;
+  }
+
+  /* Нижняя панель: фикс, full width, поверх всего */
+  #topnav{
+    position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important;
+    width: 100% !important; z-index: 2147483647 !important;
+    background: rgba(15,23,42,0.98) !important; border-top: 1px solid rgba(148,163,184,0.2) !important;
+    pointer-events: auto !important; overflow: visible !important;
+  }
+
+  #topnav, #topnav *{ box-sizing: border-box !important; }
+
+  /* Любой прямой контейнер с ссылками превращаем в сетку 6 колонок */
+  #topnav .container{ max-width:none !important; width:100% !important; padding:8px 10px !important; margin:0 !important; }
+  #topnav > ul, #topnav > ol, #topnav .tabs, #topnav .menu, #topnav .container > ul, #topnav .container > ol, #topnav .container > nav, #topnav .container > div{
+    display: grid !important;
+    grid-template-columns: repeat(6, minmax(0,1fr)) !important;
+    gap: 8px !important;
+    justify-items: center !important; align-items: center !important;
+    padding: 0 !important; margin: 0 !important; border: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* Плитки-иконки: одинаковая кликабельная площадь; текст прячем */
+  #topnav a{
+    display: inline-flex !important; align-items: center !important; justify-content: center !important;
+    width: clamp(40px, 14.5vw, 56px) !important; height: clamp(40px, 14.5vw, 56px) !important;
+    background: rgba(255,255,255,0.08) !important; border-radius: 12px !important;
+    color:#e5e7eb !important; font-size: 0 !important; line-height: 0 !important; white-space: nowrap !important;
+    text-indent: -9999px !important; overflow: hidden !important;
+    border: none !important; box-shadow: none !important; outline: none !important;
+    pointer-events: auto !important; touch-action: manipulation !important;
+  }
+  /* Вырубаем любые внутренние спаны/иконки — оставляем только ::before */
+  #topnav a > *{ display:none !important; }
+
+  /* Иконка: сперва из data-ico; если нет — fallback по порядку ссылок */
+  #topnav a::before{
+    content: attr(data-ico, "❖") !important;
+    display: block !important; font-size: 24px !important; line-height: 1 !important; color:#e5e7eb !important;
+    text-indent: 0 !important;
+  }
+  #topnav a:nth-of-type(1):not([data-ico])::before{ content:"🧭" !important; } /* Summary */
+  #topnav a:nth-of-type(2):not([data-ico])::before{ content:"🧠" !important; } /* Компетенции */
+  #topnav a:nth-of-type(3):not([data-ico])::before{ content:"📂" !important; } /* Проекты */
+  #topnav a:nth-of-type(4):not([data-ico])::before{ content:"💼" !important; } /* Карьера/Опыт */
+  #topnav a:nth-of-type(5):not([data-ico])::before{ content:"🧾" !important; } /* Публикации */
+  #topnav a:nth-of-type(6):not([data-ico])::before{ content:"📞" !important; } /* Контакты */
+}
+/* === /MOBILE BOTTOM NAV • FINAL === */
+
+/* === MOBILE BOTTOM NAV • FULL-WIDTH GRID OVERRIDE === */
+@media (max-width: 600px){
+  /* 0) Сам nav — стопроцентная ширина вьюпорта */
+  #topnav{
+    left: 0 !important; right: 0 !important; width: 100vw !important;
+  }
+
+  /* 1) Делаем грид на САМОМ контейнере: 6 равных колонок */
+  #topnav .container{
+    display: grid !important;
+    grid-template-columns: repeat(6, 1fr) !important;
+    grid-auto-flow: column !important;
+    gap: 8px !important;
+    padding: 8px 10px !important;
+    max-width: none !important; width: 100% !important; margin: 0 !important;
+  }
+
+  /* 2) Любой прямой потомок-контейнер разворачиваем в «прозрачный» */
+  #topnav .container > *{
+    display: contents !important;  /* убираем лишние обёртки, якоря станут прямыми детьми грида */
+  }
+
+  /* 3) Ссылки — заполняют свою колонку на 100% ширины */
+  #topnav a{
+    width: 100% !important;
+    height: clamp(44px, 12vw, 56px) !important;
+    justify-self: stretch !important;
+    align-self: stretch !important;
+    /* визуал иконок — как раньше */
+    display: inline-flex !important; align-items: center !important; justify-content: center !important;
+    background: rgba(255,255,255,0.08) !important; border-radius: 12px !important;
+    border: none !important; box-shadow: none !important; outline: none !important;
+    color:#e5e7eb !important; font-size:0 !important; line-height:0 !important; white-space:nowrap !important;
+    text-indent:-9999px !important; overflow:hidden !important;
+    pointer-events:auto !important; touch-action:manipulation !important;
+  }
+
+  /* 4) Только иконка через ::before, размер — адаптивный */
+  #topnav a > *{ display:none !important; }
+  #topnav a::before{
+    content: attr(data-ico, "❖") !important;
+    display:block !important; font-size: clamp(18px, 5vw, 24px) !important; line-height:1 !important; color:#e5e7eb !important;
+    text-indent:0 !important;
+  }
+}
+/* === /MOBILE BOTTOM NAV • FULL-WIDTH GRID OVERRIDE === */
+
+/* === MOBILE BOTTOM NAV • FULL-WIDTH GRID OVERRIDE === */
+@media (max-width: 600px){
+  /* 0) Сам nav — стопроцентная ширина вьюпорта */
+  #topnav{
+    left: 0 !important; right: 0 !important; width: 100vw !important;
+  }
+
+  /* 1) Делаем грид на САМОМ контейнере: 6 равных колонок */
+  #topnav .container{
+    display: grid !important;
+    grid-template-columns: repeat(6, 1fr) !important;
+    grid-auto-flow: column !important;
+    gap: 8px !important;
+    padding: 8px 10px !important;
+    max-width: none !important; width: 100% !important; margin: 0 !important;
+  }
+
+  /* 2) Любой прямой потомок-контейнер разворачиваем в «прозрачный» */
+  #topnav .container > *{
+    display: contents !important;  /* убираем лишние обёртки, якоря станут прямыми детьми грида */
+  }
+
+  /* 3) Ссылки — заполняют свою колонку на 100% ширины */
+  #topnav a{
+    width: 100% !important;
+    height: clamp(44px, 12vw, 56px) !important;
+    justify-self: stretch !important;
+    align-self: stretch !important;
+    /* визуал иконок — как раньше */
+    display: inline-flex !important; align-items: center !important; justify-content: center !important;
+    background: rgba(255,255,255,0.08) !important; border-radius: 12px !important;
+    border: none !important; box-shadow: none !important; outline: none !important;
+    color:#e5e7eb !important; font-size:0 !important; line-height:0 !important; white-space:nowrap !important;
+    text-indent:-9999px !important; overflow:hidden !important;
+    pointer-events:auto !important; touch-action:manipulation !important;
+  }
+
+  /* 4) Только иконка через ::before, размер — адаптивный */
+  #topnav a > *{ display:none !important; }
+  #topnav a::before{
+    content: attr(data-ico, "❖") !important;
+    display:block !important; font-size: clamp(18px, 5vw, 24px) !important; line-height:1 !important; color:#e5e7eb !important;
+    text-indent:0 !important;
+  }
+}
+/* === /MOBILE BOTTOM NAV • FULL-WIDTH GRID OVERRIDE === */
+
+/* === MOBILE NAV • V2 (final) — bottom fixed, full width, 6 icons, text hidden === */
+@media (max-width: 600px){
+  /* Убрать верхний hero/баннер на телефонах */
+  #hero, .hero, header.hero, .hero-banner, .hero-inner, .hero-text { display:none !important; }
+
+  /* Запас под нижнюю панель, запрет горизонтального скролла */
+  body{
+    padding-bottom: calc(env(safe-area-inset-bottom) + 80px) !important;
+    margin:0 !important; overflow-x:hidden !important;
+  }
+
+  /* Сам nav: фикс снизу во всю ширину */
+  #topnav{
+    position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important;
+    width: 100vw !important; z-index: 2147483647 !important;
+    background: rgba(15,23,42,0.98) !important; border-top: 1px solid rgba(148,163,184,0.2) !important;
+    pointer-events: auto !important; overflow: visible !important;
+  }
+
+  #topnav, #topnav *{ box-sizing: border-box !important; }
+
+  /* Грид на САМОМ контейнере (любой layout внутри — «прозрачный») */
+  #topnav .container{
+    display: grid !important;
+    grid-template-columns: repeat(6, 1fr) !important;
+    grid-auto-flow: column !important;
+    gap: 8px !important;
+    padding: 8px 10px !important;
+    max-width: none !important; width: 100% !important; margin: 0 !important;
+  }
+  /* убираем влияние внутренних обёрток */
+  #topnav .container > *{ display: contents !important; }
+
+  /* Каждая ссылка — на 100% своей колонки, большие кликабельные плитки */
+  #topnav a{
+    width: 100% !important; height: clamp(44px, 12vw, 56px) !important;
+    display: inline-flex !important; align-items: center !important; justify-content: center !important;
+    background: rgba(255,255,255,0.08) !important; border-radius: 12px !important;
+    border: none !important; box-shadow: none !important; outline: none !important;
+    color:#e5e7eb !important; font-size: 0 !important; line-height: 0 !important; white-space: nowrap !important;
+    text-indent: -9999px !important; overflow: hidden !important;
+    touch-action: manipulation !important; pointer-events: auto !important;
+  }
+  /* Внутренние узлы в ссылках скрываем — оставляем только ::before */
+  #topnav a > *{ display:none !important; }
+
+  /* Иконка из data-ico; если её нет — fallback по порядку ссылок */
+  #topnav a::before{
+    content: attr(data-ico, "❖") !important;
+    display:block !important; font-size: clamp(18px, 5vw, 24px) !important; line-height:1 !important; color:#e5e7eb !important;
+    text-indent:0 !important;
+  }
+  #topnav a:nth-of-type(1):not([data-ico])::before{ content:"🧭" !important; } /* Summary */
+  #topnav a:nth-of-type(2):not([data-ico])::before{ content:"🧠" !important; } /* Компетенции */
+  #topnav a:nth-of-type(3):not([data-ico])::before{ content:"📂" !important; } /* Проекты */
+  #topnav a:nth-of-type(4):not([data-ico])::before{ content:"💼" !important; } /* Карьера/Опыт */
+  #topnav a:nth-of-type(5):not([data-ico])::before{ content:"🧾" !important; } /* Публикации */
+  #topnav a:nth-of-type(6):not([data-ico])::before{ content:"📞" !important; } /* Контакты */
+}
+/* === /MOBILE NAV • V2 (final) === */
+
+/* === MOBILE BOTTOM NAV • FLAT LAYOUT (final) === */
+@media (max-width: 600px){
+  /* убираем верхний hero/баннер на телефонах */
+  #hero, .hero, header.hero, .hero-banner, .hero-inner, .hero-text { display:none !important; }
+
+  /* запас под нижнюю панель */
+  body{ padding-bottom: calc(env(safe-area-inset-bottom) + 80px) !important; margin:0 !important; overflow-x:hidden !important; }
+
+  /* сам nav фиксируем снизу, на всю ширину */
+  #topnav{
+    position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important;
+    width: 100vw !important; z-index: 2147483647 !important;
+    background: rgba(15,23,42,0.98) !important; border-top: 1px solid rgba(148,163,184,0.2) !important;
+  }
+
+  /* контейнер = грид из 6 равных колонок */
+  #topnav .container{
+    display: grid !important;
+    grid-template-columns: repeat(6, 1fr) !important;
+    gap: 8px !important;
+    padding: 8px 10px !important;
+    max-width: none !important; width: 100% !important; margin: 0 !important;
+  }
+
+  /* ссылки — растягиваются по колонке, текст скрыт, только иконка */
+  #topnav a{
+    display: inline-flex !important; align-items: center !important; justify-content: center !important;
+    width: 100% !important; height: clamp(44px, 12vw, 56px) !important;
+    background: rgba(255,255,255,0.08) !important; border-radius: 12px !important;
+    color: #e5e7eb !important; font-size:0 !important; line-height:0 !important; white-space:nowrap !important;
+    text-indent:-9999px !important; overflow:hidden !important; border:none !important; box-shadow:none !important;
+    touch-action: manipulation !important; pointer-events: auto !important;
+  }
+  #topnav a > *{ display:none !important; }
+  #topnav a::before{
+    content: attr(data-ico) !important;
+    display:block !important; font-size: clamp(18px, 5vw, 24px) !important; line-height:1 !important; color:#e5e7eb !important;
+    text-indent:0 !important;
+  }
+}
+/* === /MOBILE BOTTOM NAV • FLAT LAYOUT (final) === */
