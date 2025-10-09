@@ -2015,3 +2015,46 @@ h1[id], h2[id], h3[id]{
     linear-gradient(135deg, rgba(15,23,42,.45), rgba(30,41,59,.25) 55%, rgba(51,65,85,.15)),
     url("assets/banner.jpg") center/cover no-repeat !important;
 }
+
+/* === HERO UNDIM + GRID UNIFY (2025-10-09) === */
+/* Всегда включено: один и тот же макет на всех ширинах */
+#hero, .hero, header#hero,
+.hero-banner, .hero-inner, .hero-text, .profile-photo { display:block !important; }
+
+.hero-banner{
+  /* УБИРАЕМ ЛЮБОЙ ГРАДИЕНТ: только картинка */
+  background: url("assets/banner.jpg") center/cover no-repeat !important;
+  min-height: clamp(140px, 24vw, 300px) !important;
+  border-bottom: 1px solid rgba(148,163,184,.15);
+}
+
+.hero-inner{
+  display: grid !important;
+  grid-template-columns: 1fr auto !important; /* слева текст, справа фото */
+  gap: 16px !important;
+  align-items: end !important;
+  padding: 16px 0 !important;
+}
+
+.hero-text{
+  min-width: 0 !important;
+  max-width: 26ch !important;   /* даёт 2–3 строки ФИО практически всегда */
+}
+
+.hero-name{
+  font-size: clamp(28px, 5vw, 56px) !important;
+  line-height: 1.08 !important;
+  color: #f8fafc !important;    /* светлый на тёмном баннере */
+  margin: 8px 0 4px !important;
+  text-align: left !important;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.profile-photo{
+  max-width: clamp(120px, 20vw, 260px) !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
+}
+.profile-photo img{ width:100%; height:auto; display:block; }
