@@ -2075,3 +2075,10 @@ h1[id], h2[id], h3[id]{
   .hero-text{ max-width: 32ch !important; } /* было 26ch — увеличим, чтобы 3-я строка не ломалась */
   .hero-name{ font-size: clamp(36px, 3.5vw, 64px) !important; line-height:1.08 !important; }
 }
+
+/* contacts: MAX under "Сети:" */
+#contact .contact-net{ margin: 6px 0 0 0; }
+#contact .contact-net a{
+  color: inherit; text-decoration: underline;
+  word-break: break-word;
+}
