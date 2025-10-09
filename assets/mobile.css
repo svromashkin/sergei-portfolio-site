@@ -1258,9 +1258,7 @@ h1[id], h2[id], h3[id]{
 /* === MOBILE NAV FINAL FIX (v2025-10-09) === */
 @media (max-width: 600px) {
   /* Убираем шапку и баннер */
-  #hero, .hero, header.hero, .hero-banner, .hero-inner, .hero-text {
-    display: none !important;
-  }
+  
 
   /* Нижняя навигация: фиксирована, 6 иконок в ряд */
   #topnav {
@@ -1320,7 +1318,7 @@ h1[id], h2[id], h3[id]{
 /* === MOBILE NAV BOTTOM vFinal (2025-10-09) === */
 @media (max-width: 600px){
   /* Прячем верхний hero/баннер на телефонах */
-  #hero, .hero, header.hero, .hero-banner, .hero-inner, .hero-text { display:none !important; }
+  
 
   /* Запас под нижнюю панель */
   body{ padding-bottom: 72px !important; margin:0 !important; overflow-x:hidden !important; }
@@ -1426,7 +1424,7 @@ h1[id], h2[id], h3[id]{
 /* === MOBILE BOTTOM NAV • FINAL (lockdown) === */
 @media (max-width: 600px){
   /* Скрываем верхний hero/баннер на телефонах */
-  #hero, .hero, header.hero, .hero-banner, .hero-inner, .hero-text { display:none !important; }
+  
 
   /* Запас под нижнюю панель + safe-area, защита от горизонтального скролла */
   body{
@@ -1622,7 +1620,7 @@ h1[id], h2[id], h3[id]{
 
 @media (max-width: 767.98px){
   /* на мобиле hero скрыт (нижнее меню уже сделано) */
-  #hero, .hero, header#hero, .hero-banner, .hero-inner, .hero-text, .profile-photo { display:none !important; }
+  
 }
 
 /* скрытый на экране, но видимый при печати главный заголовок */
@@ -1635,7 +1633,7 @@ h1[id], h2[id], h3[id]{
     display:block !important; margin:0 0 8pt 0 !important; font-size:18pt !important; line-height:1.2 !important; color:#000 !important;
   }
   /* в печати убираем hero-баннер/фото/видео/навигацию */
-  #hero, .hero, .hero-banner, .profile-photo, nav, img, video, .video-wrap, .actions { display:none !important; }
+  
   /* текст на всю ширину */
   .container, .section, .content { width:100% !important; max-width:none !important; padding:0 !important; margin:0 0 12pt 0 !important; }
 }
@@ -1657,7 +1655,7 @@ h1[id], h2[id], h3[id]{
 
 @media (max-width: 767.98px){
   /* на мобиле hero скрыт (нижнее меню уже сделано) */
-  #hero, .hero, header#hero, .hero-banner, .hero-inner, .hero-text, .profile-photo { display:none !important; }
+  
 }
 
 /* скрытый на экране, но видимый при печати главный заголовок */
@@ -1670,7 +1668,7 @@ h1[id], h2[id], h3[id]{
     display:block !important; margin:0 0 8pt 0 !important; font-size:18pt !important; line-height:1.2 !important; color:#000 !important;
   }
   /* в печати убираем hero-баннер/фото/видео/навигацию */
-  #hero, .hero, .hero-banner, .profile-photo, nav, img, video, .video-wrap, .actions { display:none !important; }
+  
   /* текст на всю ширину */
   .container, .section, .content { width:100% !important; max-width:none !important; padding:0 !important; margin:0 0 12pt 0 !important; }
 }
@@ -1726,7 +1724,7 @@ h1[id], h2[id], h3[id]{
 
 /* ПЕЧАТЬ: всё как раньше — hero скрываем, print-title первый */
 @media print{
-  #hero, .hero, .hero-banner, .profile-photo{ display:none !important; }
+  
 }
 
 /* === HERO • FORCE ENABLE + LAYOUT (desktop banner + mobile compact) === */
@@ -1777,7 +1775,7 @@ h1[id], h2[id], h3[id]{
 
 /* Печать: hero скрыт, print-title остаётся первым (как было настроено ранее) */
 @media print{
-  #hero, .hero, .hero-banner, .profile-photo{ display:none !important; }
+  
 }
 
 /* === HERO • FORCE SHOW (mobile+desktop) — 2025-10-09 === */
@@ -1811,3 +1809,41 @@ h1[id], h2[id], h3[id]{
   .hero-banner{ min-height: clamp(160px, 24vw, 300px) !important; }
 }
 /* === /HERO • FORCE SHOW === */
+
+/* === HERO RESTORE FIX === */
+#hero, .hero, .hero-banner, .hero-inner, .hero-text {
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
+.hero-banner {
+  min-height: clamp(160px, 24vw, 280px);
+  background: linear-gradient(135deg, rgba(15,23,42,.85), rgba(30,41,59,.55) 55%, rgba(51,65,85,.35)),
+              url("assets/banner.jpg") center/cover no-repeat !important;
+  border-bottom: 1px solid rgba(148,163,184,.15);
+}
+.hero-name {
+  font-size: clamp(36px, 4vw, 72px) !important;
+  color: #f8fafc !important;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 16px 0 0 0;
+}
+@media (max-width: 768px) {
+  .hero-inner {
+    display:grid !important;
+    grid-template-columns: 1fr auto !important;
+    gap: 10px;
+    align-items:end;
+    padding:12px;
+  }
+  .hero-name {
+    font-size: clamp(28px, 7vw, 40px) !important;
+    line-height:1.15;
+  }
+  .profile-photo {
+    max-width: 120px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+}
