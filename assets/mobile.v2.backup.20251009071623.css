@@ -53,7 +53,7 @@ a[data-temp-hide="1"]{display:none !important}
 .hero-banner{
   width:100%;
   height: clamp(120px, 24vw, 220px);
-  background: url("assets/banner.jpg") center/cover no-repeat !important;
+  background: linear-gradient(135deg,#0f172a, #1e293b 55%, #334155);
 }
 .hero-inner{
   display:flex; gap:16px; align-items:flex-end; padding:12px 0; flex-wrap:wrap;
@@ -71,7 +71,7 @@ a[data-temp-hide="1"]{display:none !important}
 
 /* ====== Печать: без картинок/видео и дыр ====== */
 @media print{
-  img, video, .video-wrap, .profile-photo, nav, .actions, .hero-banner {  height:0 !important; padding:0 !important; margin:0 !important; border:0 !important; }
+  img, video, .video-wrap, .profile-photo, nav, .actions, .hero-banner { display:none !important; height:0 !important; padding:0 !important; margin:0 !important; border:0 !important; }
   .container, .section, .content { width:100% !important; max-width:none !important; padding:0 !important; margin:0 0 12pt 0 !important; }
   body{font-size:12pt; line-height:1.4}
   h1{font-size:18pt; margin:0 0 8pt}
@@ -766,7 +766,7 @@ main, .section, .wrap, .block{ position:relative !important; z-index:1 !importan
 .hero-banner{
   width:100% !important;
   height: clamp(120px, 24vw, 220px) !important;
-  background: url("assets/banner.jpg") center/cover no-repeat !important;
+  background: linear-gradient(135deg,#0f172a, #1e293b 55%, #334155) !important;
 }
 /* === SECTION ORDER: H(1/2) -> TEXT -> VIDEO === */
 .section{
@@ -995,7 +995,7 @@ h1[id], h2[id], h3[id]{
 
   /* Если всё равно слишком высоко — можно скрыть телефон на очень узких экранах */
   @media (max-width: 360px){
-    .hero-contact{  }
+    .hero-contact{ display: none !important; }
   }
 }
 /* === MOBILE: ONLY ICONS IN NAV, COMPACT HERO === */
@@ -1050,7 +1050,7 @@ h1[id], h2[id], h3[id]{
 
   /* Если всё равно слишком высоко — можно скрыть телефон на очень узких экранах */
   @media (max-width: 360px){
-    .hero-contact{  }
+    .hero-contact{ display: none !important; }
   }
 }
 /* ===== MOBILE ICONS-ONLY NAV (no nested @media, hard overrides) ===== */
@@ -1118,12 +1118,12 @@ h1[id], h2[id], h3[id]{
     height: 44px !important;
     border-radius: 10px !important;
   }
-  .hero-contact{  }
+  .hero-contact{ display:none !important; }
 }
 /* ===== MOBILE HARD FIX (<= 600px) ===== */
 @media (max-width: 600px){
   /* 1) Прячем hero, чтобы не раздувал высоту и не конфликтовал по слоям */
-  .hero, .hero *{  }
+  .hero, .hero *{ display: none !important; }
   body{ padding-top: 56px !important; } /* под фиксированное меню */
 
   /* 2) #topnav всегда во всю ширину, поверх всего, кликабельно */
@@ -1189,7 +1189,7 @@ h1[id], h2[id], h3[id]{
 /* ===== MOBILE BOTTOM NAV: icons only, full width, no scroll ===== */
 @media (max-width: 600px){
   /* 0) Прячем громоздкий hero на телефонах */
-  .hero, .hero *{  }
+  .hero, .hero *{ display:none !important; }
   /* Под фиксированную нижнюю панель даём отступ снизу, сверху оставляем наш top-padding под десктоп */
   body{ padding-bottom: 68px !important; }
 
@@ -1258,7 +1258,9 @@ h1[id], h2[id], h3[id]{
 /* === MOBILE NAV FINAL FIX (v2025-10-09) === */
 @media (max-width: 600px) {
   /* Убираем шапку и баннер */
-  
+  #hero, .hero, header.hero, .hero-banner, .hero-inner, .hero-text {
+    display: none !important;
+  }
 
   /* Нижняя навигация: фиксирована, 6 иконок в ряд */
   #topnav {
@@ -1318,7 +1320,7 @@ h1[id], h2[id], h3[id]{
 /* === MOBILE NAV BOTTOM vFinal (2025-10-09) === */
 @media (max-width: 600px){
   /* Прячем верхний hero/баннер на телефонах */
-  
+  #hero, .hero, header.hero, .hero-banner, .hero-inner, .hero-text { display:none !important; }
 
   /* Запас под нижнюю панель */
   body{ padding-bottom: 72px !important; margin:0 !important; overflow-x:hidden !important; }
@@ -1424,7 +1426,7 @@ h1[id], h2[id], h3[id]{
 /* === MOBILE BOTTOM NAV • FINAL (lockdown) === */
 @media (max-width: 600px){
   /* Скрываем верхний hero/баннер на телефонах */
-  
+  #hero, .hero, header.hero, .hero-banner, .hero-inner, .hero-text { display:none !important; }
 
   /* Запас под нижнюю панель + safe-area, защита от горизонтального скролла */
   body{
@@ -1575,7 +1577,110 @@ h1[id], h2[id], h3[id]{
 }
 /* === /MOBILE BOTTOM NAV • FULL-WIDTH GRID OVERRIDE === */
 
-/* === MOBILE BOTTOM NAV • CENTER ICONS IN TILES (final mirror) === */
+/* === MOBILE NAV • V2 (final) — bottom fixed, full width, 6 icons, text hidden === */
+@media (max-width: 600px){
+  /* Убрать верхний hero/баннер на телефонах */
+  #hero, .hero, header.hero, .hero-banner, .hero-inner, .hero-text { display:none !important; }
+
+  /* Запас под нижнюю панель, запрет горизонтального скролла */
+  body{
+    padding-bottom: calc(env(safe-area-inset-bottom) + 80px) !important;
+    margin:0 !important; overflow-x:hidden !important;
+  }
+
+  /* Сам nav: фикс снизу во всю ширину */
+  #topnav{
+    position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important;
+    width: 100vw !important; z-index: 2147483647 !important;
+    background: rgba(15,23,42,0.98) !important; border-top: 1px solid rgba(148,163,184,0.2) !important;
+    pointer-events: auto !important; overflow: visible !important;
+  }
+
+  #topnav, #topnav *{ box-sizing: border-box !important; }
+
+  /* Грид на САМОМ контейнере (любой layout внутри — «прозрачный») */
+  #topnav .container{
+    display: grid !important;
+    grid-template-columns: repeat(6, 1fr) !important;
+    grid-auto-flow: column !important;
+    gap: 8px !important;
+    padding: 8px 10px !important;
+    max-width: none !important; width: 100% !important; margin: 0 !important;
+  }
+  /* убираем влияние внутренних обёрток */
+  #topnav .container > *{ display: contents !important; }
+
+  /* Каждая ссылка — на 100% своей колонки, большие кликабельные плитки */
+  #topnav a{
+    width: 100% !important; height: clamp(44px, 12vw, 56px) !important;
+    display: inline-flex !important; align-items: center !important; justify-content: center !important;
+    background: rgba(255,255,255,0.08) !important; border-radius: 12px !important;
+    border: none !important; box-shadow: none !important; outline: none !important;
+    color:#e5e7eb !important; font-size: 0 !important; line-height: 0 !important; white-space: nowrap !important;
+    text-indent: -9999px !important; overflow: hidden !important;
+    touch-action: manipulation !important; pointer-events: auto !important;
+  }
+  /* Внутренние узлы в ссылках скрываем — оставляем только ::before */
+  #topnav a > *{ display:none !important; }
+
+  /* Иконка из data-ico; если её нет — fallback по порядку ссылок */
+  #topnav a::before{
+    content: attr(data-ico, "❖") !important;
+    display:block !important; font-size: clamp(18px, 5vw, 24px) !important; line-height:1 !important; color:#e5e7eb !important;
+    text-indent:0 !important;
+  }
+  #topnav a:nth-of-type(1):not([data-ico])::before{ content:"🧭" !important; } /* Summary */
+  #topnav a:nth-of-type(2):not([data-ico])::before{ content:"🧠" !important; } /* Компетенции */
+  #topnav a:nth-of-type(3):not([data-ico])::before{ content:"📂" !important; } /* Проекты */
+  #topnav a:nth-of-type(4):not([data-ico])::before{ content:"💼" !important; } /* Карьера/Опыт */
+  #topnav a:nth-of-type(5):not([data-ico])::before{ content:"🧾" !important; } /* Публикации */
+  #topnav a:nth-of-type(6):not([data-ico])::before{ content:"📞" !important; } /* Контакты */
+}
+/* === /MOBILE NAV • V2 (final) === */
+
+/* === MOBILE BOTTOM NAV • FLAT LAYOUT (final) === */
+@media (max-width: 600px){
+  /* убираем верхний hero/баннер на телефонах */
+  #hero, .hero, header.hero, .hero-banner, .hero-inner, .hero-text { display:none !important; }
+
+  /* запас под нижнюю панель */
+  body{ padding-bottom: calc(env(safe-area-inset-bottom) + 80px) !important; margin:0 !important; overflow-x:hidden !important; }
+
+  /* сам nav фиксируем снизу, на всю ширину */
+  #topnav{
+    position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important;
+    width: 100vw !important; z-index: 2147483647 !important;
+    background: rgba(15,23,42,0.98) !important; border-top: 1px solid rgba(148,163,184,0.2) !important;
+  }
+
+  /* контейнер = грид из 6 равных колонок */
+  #topnav .container{
+    display: grid !important;
+    grid-template-columns: repeat(6, 1fr) !important;
+    gap: 8px !important;
+    padding: 8px 10px !important;
+    max-width: none !important; width: 100% !important; margin: 0 !important;
+  }
+
+  /* ссылки — растягиваются по колонке, текст скрыт, только иконка */
+  #topnav a{
+    display: inline-flex !important; align-items: center !important; justify-content: center !important;
+    width: 100% !important; height: clamp(44px, 12vw, 56px) !important;
+    background: rgba(255,255,255,0.08) !important; border-radius: 12px !important;
+    color: #e5e7eb !important; font-size:0 !important; line-height:0 !important; white-space:nowrap !important;
+    text-indent:-9999px !important; overflow:hidden !important; border:none !important; box-shadow:none !important;
+    touch-action: manipulation !important; pointer-events: auto !important;
+  }
+  #topnav a > *{ display:none !important; }
+  #topnav a::before{
+    content: attr(data-ico) !important;
+    display:block !important; font-size: clamp(18px, 5vw, 24px) !important; line-height:1 !important; color:#e5e7eb !important;
+    text-indent:0 !important;
+  }
+}
+/* === /MOBILE BOTTOM NAV • FLAT LAYOUT (final) === */
+
+/* === MOBILE BOTTOM NAV • CENTER ICONS IN TILES (final) === */
 @media (max-width: 600px){
   #topnav a{
     position: relative !important;
@@ -1587,6 +1692,7 @@ h1[id], h2[id], h3[id]{
     border-radius: 12px !important;
     background: rgba(255,255,255,0.08) !important;
 
+    /* скрываем текст без сдвига псевдоэлемента */
     color: transparent !important;
     font-size: 0 !important;
     text-indent: 0 !important;
@@ -1609,7 +1715,7 @@ h1[id], h2[id], h3[id]{
   #hero.hero, header#hero, .hero{ display:block !important; }
   .hero-banner{
     width:100%; height: clamp(140px, 22vw, 260px);
-    background: url("assets/banner.jpg") center/cover no-repeat !important;
+    background: linear-gradient(135deg,#0f172a, #1e293b 55%, #334155);
     border-bottom: 1px solid rgba(148,163,184,.15);
   }
   .hero-inner{ display:flex; gap:16px; align-items:flex-end; padding:14px 0; flex-wrap:wrap; }
@@ -1620,7 +1726,7 @@ h1[id], h2[id], h3[id]{
 
 @media (max-width: 767.98px){
   /* на мобиле hero скрыт (нижнее меню уже сделано) */
-  
+  #hero, .hero, header#hero, .hero-banner, .hero-inner, .hero-text, .profile-photo { display:none !important; }
 }
 
 /* скрытый на экране, но видимый при печати главный заголовок */
@@ -1633,7 +1739,7 @@ h1[id], h2[id], h3[id]{
     display:block !important; margin:0 0 8pt 0 !important; font-size:18pt !important; line-height:1.2 !important; color:#000 !important;
   }
   /* в печати убираем hero-баннер/фото/видео/навигацию */
-  
+  #hero, .hero, .hero-banner, .profile-photo, nav, img, video, .video-wrap, .actions { display:none !important; }
   /* текст на всю ширину */
   .container, .section, .content { width:100% !important; max-width:none !important; padding:0 !important; margin:0 0 12pt 0 !important; }
 }
@@ -1644,7 +1750,7 @@ h1[id], h2[id], h3[id]{
   #hero.hero, header#hero, .hero{ display:block !important; }
   .hero-banner{
     width:100%; height: clamp(140px, 22vw, 260px);
-    background: url("assets/banner.jpg") center/cover no-repeat !important;
+    background: linear-gradient(135deg,#0f172a, #1e293b 55%, #334155);
     border-bottom: 1px solid rgba(148,163,184,.15);
   }
   .hero-inner{ display:flex; gap:16px; align-items:flex-end; padding:14px 0; flex-wrap:wrap; }
@@ -1655,7 +1761,7 @@ h1[id], h2[id], h3[id]{
 
 @media (max-width: 767.98px){
   /* на мобиле hero скрыт (нижнее меню уже сделано) */
-  
+  #hero, .hero, header#hero, .hero-banner, .hero-inner, .hero-text, .profile-photo { display:none !important; }
 }
 
 /* скрытый на экране, но видимый при печати главный заголовок */
@@ -1668,7 +1774,7 @@ h1[id], h2[id], h3[id]{
     display:block !important; margin:0 0 8pt 0 !important; font-size:18pt !important; line-height:1.2 !important; color:#000 !important;
   }
   /* в печати убираем hero-баннер/фото/видео/навигацию */
-  
+  #hero, .hero, .hero-banner, .profile-photo, nav, img, video, .video-wrap, .actions { display:none !important; }
   /* текст на всю ширину */
   .container, .section, .content { width:100% !important; max-width:none !important; padding:0 !important; margin:0 0 12pt 0 !important; }
 }
@@ -1680,7 +1786,9 @@ h1[id], h2[id], h3[id]{
   .hero-banner{
     width:100%;
     min-height: clamp(160px, 24vw, 300px);
-    background: url("assets/banner.jpg") center/cover no-repeat !important;
+    background:
+      linear-gradient(135deg, rgba(15,23,42,.85), rgba(30,41,59,.55) 55%, rgba(51,65,85,.35)),
+      url("assets/banner.jpg") center/cover no-repeat;
     border-bottom: 1px solid rgba(148,163,184,.15);
   }
   .hero-inner{ display:flex; gap:18px; align-items:flex-end; padding:16px 0; flex-wrap:wrap; }
@@ -1697,7 +1805,9 @@ h1[id], h2[id], h3[id]{
   .hero-banner{
     width:100%;
     min-height: clamp(90px, 22vw, 140px);
-    background: url("assets/banner.jpg") center/cover no-repeat !important;
+    background:
+      linear-gradient(135deg, rgba(15,23,42,.85), rgba(30,41,59,.55) 55%, rgba(51,65,85,.35)),
+      url("assets/banner.jpg") center/cover no-repeat;
     border-bottom: 1px solid rgba(148,163,184,.12);
   }
 
@@ -1720,7 +1830,7 @@ h1[id], h2[id], h3[id]{
 
 /* ПЕЧАТЬ: всё как раньше — hero скрываем, print-title первый */
 @media print{
-  
+  #hero, .hero, .hero-banner, .profile-photo{ display:none !important; }
 }
 
 /* === HERO • FORCE ENABLE + LAYOUT (desktop banner + mobile compact) === */
@@ -1731,7 +1841,9 @@ h1[id], h2[id], h3[id]{
   .hero-banner{
     width:100%;
     min-height: clamp(160px, 24vw, 300px);
-    background: url("assets/banner.jpg") center/cover no-repeat !important;
+    background:
+      linear-gradient(135deg, rgba(15,23,42,.85), rgba(30,41,59,.55) 55%, rgba(51,65,85,.35)),
+      url("assets/banner.jpg") center/cover no-repeat;
     border-bottom: 1px solid rgba(148,163,184,.15);
   }
   .hero-inner{ display:flex; gap:18px; align-items:flex-end; padding:16px 0; flex-wrap:wrap; }
@@ -1747,7 +1859,9 @@ h1[id], h2[id], h3[id]{
   .hero-banner{
     width:100%;
     min-height: clamp(90px, 22vw, 140px);
-    background: url("assets/banner.jpg") center/cover no-repeat !important;
+    background:
+      linear-gradient(135deg, rgba(15,23,42,.85), rgba(30,41,59,.55) 55%, rgba(51,65,85,.35)),
+      url("assets/banner.jpg") center/cover no-repeat;
     border-bottom: 1px solid rgba(148,163,184,.12);
   }
 
@@ -1767,7 +1881,7 @@ h1[id], h2[id], h3[id]{
 
 /* Печать: hero скрыт, print-title остаётся первым (как было настроено ранее) */
 @media print{
-  
+  #hero, .hero, .hero-banner, .profile-photo{ display:none !important; }
 }
 
 /* === HERO • FORCE SHOW (mobile+desktop) — 2025-10-09 === */
@@ -1778,7 +1892,9 @@ h1[id], h2[id], h3[id]{
 /* Баннер: градиент + картинка */
 .hero-banner{
   min-height: clamp(120px, 22vw, 180px);
-  background: url("assets/banner.jpg") center/cover no-repeat !important;
+  background:
+    linear-gradient(135deg, rgba(15,23,42,.85), rgba(30,41,59,.55) 55%, rgba(51,65,85,.35)),
+    url("assets/banner.jpg") center/cover no-repeat !important;
   border-bottom: 1px solid rgba(148,163,184,.15);
 }
 
@@ -1799,266 +1915,3 @@ h1[id], h2[id], h3[id]{
   .hero-banner{ min-height: clamp(160px, 24vw, 300px) !important; }
 }
 /* === /HERO • FORCE SHOW === */
-
-/* === HERO RESTORE FIX === */
-#hero, .hero, .hero-banner, .hero-inner, .hero-text {
-  display:block !important;
-  visibility:visible !important;
-  opacity:1 !important;
-}
-.hero-banner {
-  min-height: clamp(160px, 24vw, 280px);
-  background: url("assets/banner.jpg") center/cover no-repeat !important;
-  border-bottom: 1px solid rgba(148,163,184,.15);
-}
-.hero-name {
-  font-size: clamp(36px, 4vw, 72px) !important;
-  color: #f8fafc !important;
-  font-weight: 700;
-  line-height: 1.1;
-  margin: 16px 0 0 0;
-}
-@media (max-width: 768px) {
-  .hero-inner {
-    display:grid !important;
-    grid-template-columns: 1fr auto !important;
-    gap: 10px;
-    align-items:end;
-    padding:12px;
-  }
-  .hero-name {
-    font-size: clamp(28px, 7vw, 40px) !important;
-    line-height:1.15;
-  }
-  .profile-photo {
-    max-width: 120px;
-    border-radius: 12px;
-    overflow: hidden;
-  }
-}
-
-/* === HERO RESTORE FIX === */
-#hero, .hero, .hero-banner, .hero-inner, .hero-text {
-  display:block !important;
-  visibility:visible !important;
-  opacity:1 !important;
-}
-.hero-banner {
-  min-height: clamp(160px, 24vw, 280px);
-  background: url("assets/banner.jpg") center/cover no-repeat !important;
-  border-bottom: 1px solid rgba(148,163,184,.15);
-}
-.hero-name {
-  font-size: clamp(36px, 4vw, 72px) !important;
-  color: #f8fafc !important;
-  font-weight: 700;
-  line-height: 1.1;
-  margin: 16px 0 0 0;
-}
-@media (max-width: 768px) {
-  .hero-inner {
-    display:grid !important;
-    grid-template-columns: 1fr auto !important;
-    gap: 10px;
-    align-items:end;
-    padding:12px;
-  }
-  .hero-name {
-    font-size: clamp(28px, 7vw, 40px) !important;
-    line-height:1.15;
-  }
-  .profile-photo {
-    max-width: 120px;
-    border-radius: 12px;
-    overflow: hidden;
-  }
-}
-
-/* === HERO RESTORE FIX === */
-#hero, .hero, .hero-banner, .hero-inner, .hero-text {
-  display:block !important;
-  visibility:visible !important;
-  opacity:1 !important;
-}
-.hero-banner {
-  min-height: clamp(160px, 24vw, 280px);
-  background: url("assets/banner.jpg") center/cover no-repeat !important;
-  border-bottom: 1px solid rgba(148,163,184,.15);
-}
-.hero-name {
-  font-size: clamp(36px, 4vw, 72px) !important;
-  color: #f8fafc !important;
-  font-weight: 700;
-  line-height: 1.1;
-  margin: 16px 0 0 0;
-}
-@media (max-width: 768px) {
-  .hero-inner {
-    display:grid !important;
-    grid-template-columns: 1fr auto !important;
-    gap: 10px;
-    align-items:end;
-    padding:12px;
-  }
-  .hero-name {
-    font-size: clamp(28px, 7vw, 40px) !important;
-    line-height:1.15;
-  }
-  .profile-photo {
-    max-width: 120px;
-    border-radius: 12px;
-    overflow: hidden;
-  }
-}
-
-/* === HERO RESTORE FIX === */
-#hero, .hero, .hero-banner, .hero-inner, .hero-text {
-  display:block !important;
-  visibility:visible !important;
-  opacity:1 !important;
-}
-.hero-banner {
-  min-height: clamp(160px, 24vw, 280px);
-  background: url("assets/banner.jpg") center/cover no-repeat !important;
-  border-bottom: 1px solid rgba(148,163,184,.15);
-}
-.hero-name {
-  font-size: clamp(36px, 4vw, 72px) !important;
-  color: #f8fafc !important;
-  font-weight: 700;
-  line-height: 1.1;
-  margin: 16px 0 0 0;
-}
-@media (max-width: 768px) {
-  .hero-inner {
-    display:grid !important;
-    grid-template-columns: 1fr auto !important;
-    gap: 10px;
-    align-items:end;
-    padding:12px;
-  }
-  .hero-name {
-    font-size: clamp(28px, 7vw, 40px) !important;
-    line-height:1.15;
-  }
-  .profile-photo {
-    max-width: 120px;
-    border-radius: 12px;
-    overflow: hidden;
-  }
-}
-
-/* === HERO TYPOGRAPHY FINAL — 2025-10-09 === */
-
-/* Десктоп: крупное ФИО */
-@media (min-width: 981px){
-  .hero-name{
-    font-size: clamp(44px, 4vw, 76px) !important;
-    line-height: 1.08 !important;
-    letter-spacing: 0.2px;
-    color: #f8fafc !important;
-    margin: 12px 0 6px !important;
-    text-wrap: balance;
-    overflow-wrap: anywhere;
-    hyphens: auto;
-  }
-  .hero-text{ max-width: 60ch; }
-}
-
-/* Мобила: ФИО слева в 2–3 строки, фото справа */
-@media (max-width: 980px){
-  .hero-inner{
-    display: grid !important;
-    grid-template-columns: 1fr auto !important;
-    gap: 12px !important;
-    align-items: end !important;
-    padding: 12px 0 !important;
-  }
-  .hero-text{
-    min-width: 0;              /* разрешаем сужение для переносов */
-    max-width: 26ch;           /* провоцируем 2–3 строки */
-  }
-  .hero-name{
-    font-size: clamp(28px, 9vw, 40px) !important;
-    line-height: 1.05 !important;
-    color: #f8fafc !important;
-    margin: 6px 0 2px !important;
-    text-wrap: balance;
-    overflow-wrap: anywhere;
-    hyphens: auto;
-  }
-  .profile-photo{
-    max-width: clamp(96px, 28vw, 128px) !important;
-    border-radius: 14px !important;
-    overflow: hidden !important;
-  }
-  .profile-photo img{ width:100%; height:auto; display:block }
-}
-
-/* Баннер — умеренный градиент, чтобы картинка не «замыливалась» */
-.hero-banner{
-  background: url("assets/banner.jpg") center/cover no-repeat !important;
-}
-
-/* === HERO UNDIM + GRID UNIFY (2025-10-09) === */
-/* Всегда включено: один и тот же макет на всех ширинах */
-#hero, .hero, header#hero,
-.hero-banner, .hero-inner, .hero-text, .profile-photo { display:block !important; }
-
-.hero-banner{
-  /* УБИРАЕМ ЛЮБОЙ ГРАДИЕНТ: только картинка */
-  background: url("assets/banner.jpg") center/cover no-repeat !important;
-  min-height: clamp(140px, 24vw, 300px) !important;
-  border-bottom: 1px solid rgba(148,163,184,.15);
-}
-
-.hero-inner{
-  display: grid !important;
-  grid-template-columns: 1fr auto !important; /* слева текст, справа фото */
-  gap: 16px !important;
-  align-items: end !important;
-  padding: 16px 0 !important;
-}
-
-.hero-text{
-  min-width: 0 !important;
-  max-width: 26ch !important;   /* даёт 2–3 строки ФИО практически всегда */
-}
-
-.hero-name{
-  font-size: clamp(28px, 5vw, 56px) !important;
-  line-height: 1.08 !important;
-  color: #f8fafc !important;    /* светлый на тёмном баннере */
-  margin: 8px 0 4px !important;
-  text-align: left !important;
-  text-wrap: balance;
-  overflow-wrap: anywhere;
-  hyphens: auto;
-}
-
-.profile-photo{
-  max-width: clamp(120px, 20vw, 260px) !important;
-  border-radius: 14px !important;
-  overflow: hidden !important;
-}
-.profile-photo img{ width:100%; height:auto; display:block; }
-
-/* === HERO OVERRIDE (2025-10-09): clean banner + show hero === */
-#hero, .hero, header#hero, .hero-banner, .hero-inner, .hero-text, .profile-photo { display:block !important; visibility:visible !important; opacity:1 !important; }
-.hero-banner{
-  background: url("assets/banner.jpg") center/cover no-repeat !important;
-  min-height: clamp(140px, 24vw, 300px) !important;
-  border-bottom: 1px solid rgba(148,163,184,.15);
-}
-.hero-inner{
-  display:grid !important; grid-template-columns: 1fr auto !important;
-  gap:16px !important; align-items:end !important; padding:16px 0 !important;
-}
-.hero-text{ min-width:0 !important; max-width:26ch !important; }
-.hero-name{
-  color:#f8fafc !important; text-align:left !important;
-  font-size: clamp(28px, 5vw, 56px) !important; line-height:1.08 !important;
-  margin:8px 0 4px !important;
-}
-.profile-photo{ max-width: clamp(120px, 20vw, 260px) !important; border-radius:14px !important; overflow:hidden !important; }
-.profile-photo img{ width:100%; height:auto; display:block; }
