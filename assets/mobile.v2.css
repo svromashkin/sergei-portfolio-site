@@ -1679,3 +1679,32 @@ h1[id], h2[id], h3[id]{
   }
 }
 /* === /MOBILE BOTTOM NAV • FLAT LAYOUT (final) === */
+
+/* === MOBILE BOTTOM NAV • CENTER ICONS IN TILES (final) === */
+@media (max-width: 600px){
+  #topnav a{
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: clamp(44px, 12vw, 56px) !important;
+    border-radius: 12px !important;
+    background: rgba(255,255,255,0.08) !important;
+
+    /* скрываем текст без сдвига псевдоэлемента */
+    color: transparent !important;
+    font-size: 0 !important;
+    text-indent: 0 !important;
+    overflow: hidden !important;
+    border: none !important; box-shadow: none !important; outline: none !important;
+  }
+  #topnav a::before{
+    content: attr(data-ico, "❖") !important;
+    position: absolute !important; inset: 0 !important;
+    display: flex !important; align-items: center !important; justify-content: center !important;
+    font-size: clamp(18px, 5vw, 24px) !important;
+    line-height: 1 !important; color: #e5e7eb !important;
+    text-indent: 0 !important;
+  }
+}
