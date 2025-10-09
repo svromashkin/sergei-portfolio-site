@@ -1708,3 +1708,73 @@ h1[id], h2[id], h3[id]{
     text-indent: 0 !important;
   }
 }
+
+/* === HERO (desktop-only) + PRINT TITLE === */
+@media (min-width: 768px){
+  /* показываем hero только на десктопе */
+  #hero.hero, header#hero, .hero{ display:block !important; }
+  .hero-banner{
+    width:100%; height: clamp(140px, 22vw, 260px);
+    background: linear-gradient(135deg,#0f172a, #1e293b 55%, #334155);
+    border-bottom: 1px solid rgba(148,163,184,.15);
+  }
+  .hero-inner{ display:flex; gap:16px; align-items:flex-end; padding:14px 0; flex-wrap:wrap; }
+  .hero-text{ flex:1 1 280px }
+  .hero-name{ font-size: clamp(28px, 2.6vw, 44px); line-height:1.15; margin:12px 0 4px }
+  .profile-photo{ max-width: 240px; border-radius: 12px; overflow:hidden }
+}
+
+@media (max-width: 767.98px){
+  /* на мобиле hero скрыт (нижнее меню уже сделано) */
+  #hero, .hero, header#hero, .hero-banner, .hero-inner, .hero-text, .profile-photo { display:none !important; }
+}
+
+/* скрытый на экране, но видимый при печати главный заголовок */
+.print-title{
+  position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden; /* скрываем на экране */
+}
+@media print{
+  .print-title{
+    position:static !important; left:auto !important; width:auto !important; height:auto !important; overflow:visible !important;
+    display:block !important; margin:0 0 8pt 0 !important; font-size:18pt !important; line-height:1.2 !important; color:#000 !important;
+  }
+  /* в печати убираем hero-баннер/фото/видео/навигацию */
+  #hero, .hero, .hero-banner, .profile-photo, nav, img, video, .video-wrap, .actions { display:none !important; }
+  /* текст на всю ширину */
+  .container, .section, .content { width:100% !important; max-width:none !important; padding:0 !important; margin:0 0 12pt 0 !important; }
+}
+
+/* === HERO (desktop-only) + PRINT TITLE === */
+@media (min-width: 768px){
+  /* показываем hero только на десктопе */
+  #hero.hero, header#hero, .hero{ display:block !important; }
+  .hero-banner{
+    width:100%; height: clamp(140px, 22vw, 260px);
+    background: linear-gradient(135deg,#0f172a, #1e293b 55%, #334155);
+    border-bottom: 1px solid rgba(148,163,184,.15);
+  }
+  .hero-inner{ display:flex; gap:16px; align-items:flex-end; padding:14px 0; flex-wrap:wrap; }
+  .hero-text{ flex:1 1 280px }
+  .hero-name{ font-size: clamp(28px, 2.6vw, 44px); line-height:1.15; margin:12px 0 4px }
+  .profile-photo{ max-width: 240px; border-radius: 12px; overflow:hidden }
+}
+
+@media (max-width: 767.98px){
+  /* на мобиле hero скрыт (нижнее меню уже сделано) */
+  #hero, .hero, header#hero, .hero-banner, .hero-inner, .hero-text, .profile-photo { display:none !important; }
+}
+
+/* скрытый на экране, но видимый при печати главный заголовок */
+.print-title{
+  position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden; /* скрываем на экране */
+}
+@media print{
+  .print-title{
+    position:static !important; left:auto !important; width:auto !important; height:auto !important; overflow:visible !important;
+    display:block !important; margin:0 0 8pt 0 !important; font-size:18pt !important; line-height:1.2 !important; color:#000 !important;
+  }
+  /* в печати убираем hero-баннер/фото/видео/навигацию */
+  #hero, .hero, .hero-banner, .profile-photo, nav, img, video, .video-wrap, .actions { display:none !important; }
+  /* текст на всю ширину */
+  .container, .section, .content { width:100% !important; max-width:none !important; padding:0 !important; margin:0 0 12pt 0 !important; }
+}
