@@ -205,3 +205,27 @@ document.addEventListener('DOMContentLoaded', () => {
     a.dataset.ico = icon;
   });
 });
+// Mobile bottom nav init (final)
+(function(){
+  function mapIcon(a){
+    const t = (a.textContent||"").toLowerCase();
+    const h = (a.getAttribute("href")||"").toLowerCase();
+    if (a.dataset.ico) return; // уже задана
+    let icon = "❖";
+    if (/summ|summary|about|глав/.test(t+h)) icon = "🧭";
+    else if (/компет|skill/.test(t+h)) icon = "🧠";
+    else if (/proj|портф|work|case/.test(t+h)) icon = "📂";
+    else if (/exp|опыт|career|cv|резюме/.test(t+h)) icon = "💼";
+    else if (/pub|стать|article|award/.test(t+h)) icon = "🧾";
+    else if (/cont|контакт|tel|phone/.test(t+h)) icon = "📞";
+    a.dataset.ico = icon;
+    if (!a.getAttribute('aria-label')) a.setAttribute('aria-label', (a.textContent||'').trim() || 'menu');
+  }
+  function init(){
+    const nav = document.getElementById('topnav');
+    if (!nav) return;
+    nav.querySelectorAll('a').forEach(mapIcon);
+  }
+  const ro = new MutationObserver(init);
+  document.addEventListener('DOMContentLoaded', ()=>{ init(); const n=document.getElementById('topnav'); if(n) ro.observe(n,{childList:true,subtree:true}); });
+})();
